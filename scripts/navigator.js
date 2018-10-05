@@ -39,7 +39,7 @@ var _Navigator = (function () {
             prevPageId: "p3",
             nextPageId: "p5",
             dataurl: "p4.htm",
-           // hinturl: "hintp4.htm",
+            // hinturl: "hintp4.htm",
             hasActivity: true,
 
         },
@@ -58,7 +58,7 @@ var _Navigator = (function () {
             nextPageId: "p7",
             dataurl: "p6.htm",
             //hinturl: "hintp6.htm",
-            
+
         },
         "p7": {
             pageId: "p7",
@@ -66,11 +66,11 @@ var _Navigator = (function () {
             nextPageId: "",
             dataurl: "p7.htm",
             hasActivity: true,
-            isLastPage:true,
-            isAssessment:true,
-            hideHint:true,
+            isLastPage: true,
+            isAssessment: true,
+            hideHint: true,
         },
-        
+
     }
     var _StateData = {}
 
@@ -100,10 +100,9 @@ var _Navigator = (function () {
             if (jsonObj == undefined) {
                 jsonObj = {};
             }
-            _currentPageId = pageId;           
+            _currentPageId = pageId;
             _currentPageObject = _NData[_currentPageId]
-            if(_currentPageObject.hasActivity == undefined || _currentPageObject.hasActivity == false)
-            {
+            if (_currentPageObject.hasActivity == undefined || _currentPageObject.hasActivity == false) {
                 this.SetPageStatus(true)
             }
             this.UpdateProgressBar();
@@ -128,7 +127,7 @@ var _Navigator = (function () {
             if (_currentPageObject.isLastPage != undefined && _currentPageObject.isLastPage) {
                 $("#linknext").k_disable();
             }
-           
+
 
             _currentPageObject.isVisited = true;
 
@@ -136,69 +135,57 @@ var _Navigator = (function () {
             if (_currentPageObject.pageId == "p3") { // temporary fix
                 $("#progressdiv").css("margin-left", "-20px")
             }
-            else
-            {
+            else {
                 $("#progressdiv").css("margin-left", "-15px")
             }
             if (_currentPageObject.isStartPage) {
                 $(".main-content").load(pageUrl, function () {
-                    OnPageLoad();                   
-                    setReader("header1");    
+                    OnPageLoad();
+                    setReader("header1");
 
                 });
             } else {
                 $(".main-content").fadeTo(250, 0.25, function () {
                     $(".main-content").load(pageUrl, function () {
                         $(this).fadeTo(600, 1)
-                        
+
                         OnPageLoad();
-                        if(_currentPageId=="p5")//  change to assessment id
+                        if (_currentPageId == "p5")//  change to assessment id
                         {
-                           
+
                             showComputerQuestion();
                         }
-                        if(_currentPageId=="p6")//  change to assessment id
+                        if (_currentPageId == "p6")//  change to assessment id
                         {
                             showReviewSummary();
                         }
-                        if(_currentPageId=="p7")//  change to assessment id
+                        if (_currentPageId == "p7")//  change to assessment id
                         {
                             showQuestion();
                         }
-                        if(_currentPageId=="p9")
-                        {
+                        if (_currentPageId == "p9") {
                             $(".submitdata").k_disable();
                         }
-                        
-                        if(_currentPageObject.pageId == "p2")
-                            setReader("titleheader");
-                        else
-                        {
-                            //if($("body").hasClass("no-focus"))
-                            {
-                                setReader("titleheader");
-                            }
-                            // else
-                            // {
-                            //     setReader("progressdiv");
-                            // }
+
+                        if (_currentPageId == "p2") {
+                            $("#titleheader").focus();
                         }
+                        else {
+                            $("#progressdiv").focus();
+                        }
+                        
                         $("#hintdiv").show();
-                        if(_currentPageObject.hideHint !=undefined && _currentPageObject.hideHint)
-                        {
+                        if (_currentPageObject.hideHint != undefined && _currentPageObject.hideHint) {
                             $("#hintdiv").hide();
                         }
-                            if(presentermode)
-                            {
-                                _ModuleCommon.PresenterMode();
-                            }
-                        if( _currentPageObject.hinturl !=undefined)
-                        {
+                        if (presentermode) {
+                            _ModuleCommon.PresenterMode();
+                        }
+                        if (_currentPageObject.hinturl != undefined) {
                             $(".hintlink").k_enable();
                             $(".hintcontent").load("pagedata/hintdata/" + _currentPageObject.hinturl, function () { });
                         }
-                        else
-                        {
+                        else {
                             $(".hintlink").k_disable();
                         }
                         _NData[_currentPageObject.pageId].isLoaded = true;
@@ -223,23 +210,22 @@ var _Navigator = (function () {
             }
         },
         Prev: function () {
-           
-            if( _currentPageObject.pageId == "p5" && typeof(currentCompQuestionIndex) !='undefined'  &&  currentCompQuestionIndex > 0  )
-            {
-                currentCompQuestionIndex  = currentCompQuestionIndex -1 
+
+            if (_currentPageObject.pageId == "p5" && typeof (currentCompQuestionIndex) != 'undefined' && currentCompQuestionIndex > 0) {
+                currentCompQuestionIndex = currentCompQuestionIndex - 1
                 //$("#Questioninfo").show();
                 showComputerQuestion()
             }
-            else if ( _currentPageObject.pageId == "p7" && typeof(currentQuestionIndex) !='undefined'  &&  currentQuestionIndex > 0   ) {
-				$("#ReviewIns").hide();
+            else if (_currentPageObject.pageId == "p7" && typeof (currentQuestionIndex) != 'undefined' && currentQuestionIndex > 0) {
+                $("#ReviewIns").hide();
                 $(".intro-content-question").show();
                 $("#Questioninfo").show();
-                currentQuestionIndex  = currentQuestionIndex - 1;
+                currentQuestionIndex = currentQuestionIndex - 1;
                 $("#Summary").empty();
                 $("#Summary").hide();
-				showQuestion();				
+                showQuestion();
             }
-            else{
+            else {
                 this.LoadPage(_currentPageObject.prevPageId);
             }
 
@@ -250,47 +236,44 @@ var _Navigator = (function () {
                 var custFunction = new Function(_currentPageObject.customNext.jsFunction);
                 custFunction();
             }
-            if(_currentPageId == "p5" && typeof(currentCompQuestionIndex) !='undefined' && typeof(gComputerData.Questions) !='undefined'  && (currentCompQuestionIndex +1) < gComputerData.Questions.length )
-            {                   
-             currentCompQuestionIndex  = currentCompQuestionIndex + 1; 
-             showComputerQuestion();
+            if (_currentPageId == "p5" && typeof (currentCompQuestionIndex) != 'undefined' && typeof (gComputerData.Questions) != 'undefined' && (currentCompQuestionIndex + 1) < gComputerData.Questions.length) {
+                currentCompQuestionIndex = currentCompQuestionIndex + 1;
+                showComputerQuestion();
             }
-            else if ( _currentPageObject.pageId == "p7")
-            {
-               
-             if ( typeof(currentQuestionIndex) !='undefined' && typeof(gRecordData.Questions) !='undefined'  && (currentQuestionIndex +1) < gRecordData.Questions.length ) {
-                    currentQuestionIndex  = currentQuestionIndex + 1
+            else if (_currentPageObject.pageId == "p7") {
+
+                if (typeof (currentQuestionIndex) != 'undefined' && typeof (gRecordData.Questions) != 'undefined' && (currentQuestionIndex + 1) < gRecordData.Questions.length) {
+                    currentQuestionIndex = currentQuestionIndex + 1
                     $("#Questioninfo").show();
-                    showQuestion()                    
+                    showQuestion()
                     //this.UpdateProgressBar();
-                    if(gRecordData.Status !="Completed")
-                    {
-                        $("#linknext").k_disable();    
+                    if (gRecordData.Status != "Completed") {
+                        $("#linknext").k_disable();
                         $("#linkprevious").k_disable();
-                    }    
+                    }
                 }
 
-              else  if ( typeof(currentQuestionIndex) !='undefined' && typeof(gRecordData.Questions) !='undefined'  && (currentQuestionIndex +1) == gRecordData.Questions.length ) {
+                else if (typeof (currentQuestionIndex) != 'undefined' && typeof (gRecordData.Questions) != 'undefined' && (currentQuestionIndex + 1) == gRecordData.Questions.length) {
                     //this.UpdateProgressBar();
                     // Show review instruction
-                    
-                        $(".intro-content-question").hide();
-                        $(".questionwrapper").hide();
-                        currentQuestionIndex  = currentQuestionIndex + 1;
-                        $("#Summary").show();
-                        $("#Questioninfo").hide();
-				        $("#Summary").load("pagedata/Summary.htm",function(){
-                            showSummary()                           
-                            $("#linkprevious").k_enable();
-                            
-                        })
-                        $("#climate-deal").css("margin-left","23%");
-                        $("#linknext").k_disable();
-                        
 
-                }                
-          
-			}
+                    $(".intro-content-question").hide();
+                    $(".questionwrapper").hide();
+                    currentQuestionIndex = currentQuestionIndex + 1;
+                    $("#Summary").show();
+                    $("#Questioninfo").hide();
+                    $("#Summary").load("pagedata/Summary.htm", function () {
+                        showSummary()
+                        $("#linkprevious").k_enable();
+
+                    })
+                    $("#climate-deal").css("margin-left", "23%");
+                    $("#linknext").k_disable();
+
+
+                }
+
+            }
             else {
 
                 this.LoadPage(_currentPageObject.nextPageId);
@@ -303,21 +286,21 @@ var _Navigator = (function () {
                     visitpage++;
                 }
             }
-            visitpage += this.GetAnswerCount() + this.GetComputerAnswerCount() ;
+            visitpage += this.GetAnswerCount() + this.GetComputerAnswerCount();
             return visitpage;
         },
-        GetComputerAnswerCount:function(){
-            var cnt =  (gComputerData.Questions.filter(function (item) {
-                  return item.IsAnswered;
-              }).length  ) 
-             
-              return cnt;
-          },
-        GetAnswerCount:function(){
-          var cnt =  (gRecordData.Questions.filter(function (item) {
+        GetComputerAnswerCount: function () {
+            var cnt = (gComputerData.Questions.filter(function (item) {
                 return item.IsAnswered;
-            }).length  ) 
-            cnt+= gRecordData.Status == "Completed" ? 1:0;
+            }).length)
+
+            return cnt;
+        },
+        GetAnswerCount: function () {
+            var cnt = (gRecordData.Questions.filter(function (item) {
+                return item.IsAnswered;
+            }).length)
+            cnt += gRecordData.Status == "Completed" ? 1 : 0;
             return cnt;
         },
         UpdateProgressBar: function () {
@@ -362,7 +345,7 @@ var _Navigator = (function () {
                 _NData[_currentPageObject.pageId].isAnswered = true;
                 this.UpdateProgressBar();
             }
-            
+
         },
         IsAnswered: function () {
             if (_currentPageObject.isAnswered != undefined && _currentPageObject.isAnswered)
@@ -378,10 +361,10 @@ var _Navigator = (function () {
             return false;
 
         },
-        SetPresenterMode:function(val){
+        SetPresenterMode: function (val) {
             presentermode = val;
         },
-        IsPresenterMode:function(){
+        IsPresenterMode: function () {
             return presentermode;
         }
     };
@@ -395,27 +378,27 @@ function setReader(idToStartReading) {
 
 
 function removeCSS(cssFileToRemove) {
-	for(var w=0; w < document.styleSheets.length; w++ ){
-		if(document.styleSheets[w].href.indexOf(cssFileToRemove) != -1 ) {
-			document.styleSheets[w].disabled = true;
-		}
-	}
+    for (var w = 0; w < document.styleSheets.length; w++) {
+        if (document.styleSheets[w].href.indexOf(cssFileToRemove) != -1) {
+            document.styleSheets[w].disabled = true;
+        }
+    }
 }
 function addCSS(cssFileToAdd) {
-	var isCSSAlreadyAdded = false;
-	for(var w=0; w < document.styleSheets.length; w++ ){
-		if(document.styleSheets[w].href.indexOf(cssFileToAdd) != -1 ) {
-			isCSSAlreadyAdded = false;
-		}
-	}
-	console.log(isCSSAlreadyAdded + " --")
-	if(! isCSSAlreadyAdded){
-		var newlink = document.createElement("link");
-		newlink.setAttribute("rel", "stylesheet");
-		newlink.setAttribute("type", "text/css");
-		newlink.setAttribute("href", cssFileToAdd);
-		document.getElementsByTagName("head").item(0).appendChild(newlink);
-	}
+    var isCSSAlreadyAdded = false;
+    for (var w = 0; w < document.styleSheets.length; w++) {
+        if (document.styleSheets[w].href.indexOf(cssFileToAdd) != -1) {
+            isCSSAlreadyAdded = false;
+        }
+    }
+    console.log(isCSSAlreadyAdded + " --")
+    if (!isCSSAlreadyAdded) {
+        var newlink = document.createElement("link");
+        newlink.setAttribute("rel", "stylesheet");
+        newlink.setAttribute("type", "text/css");
+        newlink.setAttribute("href", cssFileToAdd);
+        document.getElementsByTagName("head").item(0).appendChild(newlink);
+    }
 }
 
 function changeCSS(cssFile, cssLinkIndex) {
