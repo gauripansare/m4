@@ -142,10 +142,9 @@ $(document).on('click', ".activityimg", function (event) {
     _ModuleCommon.AddEditPropertiesClick(event);
 });
 
-
 $(document).on('click', ".startbtn", function (event) {
  _Navigator.Next();
- //_Navigator.LoadPage("p4")
+ //_Navigator.LoadPage("p7")
 });
 $(document).on('click', ".reviewsubmit", function (event) {
     _Navigator.Next();
@@ -166,12 +165,12 @@ $(document).on("change", ".assessmentradio", function (event) {
 $(document).on("change", ".computerradio", function (event) {
     $(".addtocart").k_enable(); 
     $(".computerradio").each(function(){
-        $(this).closest("label").find("img").attr("src","assets/images/radiobtn-v2.png");
-        $(this).closest("label").find(".inpputtext").css("font-weight","normal");
+        $(this).prev("img").attr("src","assets/images/radiobtn-v2.png");
+        $(this).next(".inpputtext").css("font-weight","normal");
         
     });
-    $(this).closest("label").find("img").attr("src","assets/images/radiobtnsel-v2.png");
-    $(this).closest("label").find(".inpputtext").css("font-weight","bold");
+    $(this).prev("img").attr("src","assets/images/radiobtnsel-v2.png");
+    $(this).next(".inpputtext").css("font-weight","bold");
 
 });
 $(document).on("change", ".computercheckbox", function (event) {
@@ -186,13 +185,13 @@ $(document).on("change", ".computercheckbox", function (event) {
     $(".computercheckbox").each(function(){
         if($(this).prop("checked") == true)
         {
-         $(this).closest("label").find("img").attr("src","assets/images/checkbox-sel-v1.png");
-         $(this).closest("label").find(".inpputtext").css("font-weight","bold");
+         $(this).prev("img").attr("src","assets/images/checkbox-sel-v1.png");
+         $(this).next(".inpputtext").css("font-weight","bold");
         }
         else
         {
-         $(this).closest("label").find("img").attr("src","assets/images/checkbox-v1.png");
-         $(this).closest("label").find(".inpputtext").css("font-weight","normal");
+         $(this).prev("img").attr("src","assets/images/checkbox-v1.png");
+         $(this).next(".inpputtext").css("font-weight","normal");
         }
     });
    
@@ -256,7 +255,17 @@ $(document).on("click",".buildcomputer",function(event){
     _Navigator.LoadPage("p6"); 
   
 });
+$(document).on("click", "#radioCheckedUnchecked", function (event) {
+    $(this).next("input").next(".inpputtext").trigger( "click" );
+});
 
+$(document).on("click", "#checkboxCheckedUnchecked", function (event) {
+    $(this).next("input").next(".inpputtext").trigger( "click" );
+});
+
+$(document).on('click', ".inputcircle", function (event) {
+    $(this).next(".inpputtext").trigger( "click" );
+});
 
 
 

@@ -80,7 +80,9 @@ function showComputerQuestion(){
 		//currQuestion.Options = shuffle(currQuestion.Options)
 	}
 
-	$(".questionoptions").empty();
+	$(".questionoptions fieldset").empty();
+	$(".questionoptions fieldset").append("<legend aria-label='Options'></legend>");
+
 
 	$("#linkprevious").k_enable();
 	$("#linknext").k_disable();
@@ -112,23 +114,25 @@ function showComputerQuestion(){
 			if(currQuestion.type == "checkbox")
 			{
 				optionObj = $(".checkoption").clone();
-				optionObj.removeClass("checkoption")
+				optionObj.removeClass("checkoption");
 				optionObj.find("img").attr("src","assets/images/checkbox-v1.png");
 				
 			}
 			else
 			{
 				optionObj = $(".radiooption").clone();
-				optionObj.removeClass("radiooption")
+				optionObj.removeClass("radiooption");
 				optionObj.find("img").attr("src","assets/images/radiobtn-v2.png");
 			}
-			optionObj.attr("id", "label"+currQuestion.Options[i].OptionId)
-			optionObj.find("input").attr("id", currQuestion.Options[i].OptionId)
-			optionObj.find(".inpputtext").html(currQuestion.Options[i].OptionText)
+			//optionObj.attr("for", currQuestion.Options[i].OptionId);
+			optionObj.find("input").attr("id", currQuestion.Options[i].OptionId);
+			optionObj.find("input").css("position","absolute");
+			optionObj.find(".inpputtext").html(currQuestion.Options[i].OptionText);
+			optionObj.find(".inpputtext").attr("for",currQuestion.Options[i].OptionId)
 			
 			optionObj.show();
 			
-			$(".questionoptions").append(optionObj);
+			$(".questionoptions fieldset").append(optionObj);
 			if(currQuestion.Options[i].iscorrect!=undefined && currQuestion.Options[i].iscorrect && gRecordData.Status == "Completed")
 			{
 				optionObj.find(".inpputtext").addClass("greenspan")
@@ -140,24 +144,24 @@ function showComputerQuestion(){
 					if(currQuestion.UserSelectedOptionId.indexOf(currQuestion.Options[i].OptionId)>= 0)
 					{
 						$("#"+currQuestion.Options[i].OptionId).prop( "checked","true" );	
-						$("#"+currQuestion.Options[i].OptionId).closest("label").find("img").attr("src","assets/images/checkbox-sel-v1.png")
-						$("#"+currQuestion.Options[i].OptionId).closest("label").find(".inpputtext").css("font-weight","bold");
+						$("#"+currQuestion.Options[i].OptionId).prev("img").attr("src","assets/images/checkbox-sel-v1.png")
+						$("#"+currQuestion.Options[i].OptionId).next(".inpputtext").css("font-weight","bold");
 
 						if(gRecordData.Status == "Completed" && (currQuestion.Options[i].iscorrect == undefined || currQuestion.Options[i].iscorrect == false ))
 						{
-							$("#"+currQuestion.Options[i].OptionId).closest("label").find(".inpputtext").addClass("redspan")
+							$("#"+currQuestion.Options[i].OptionId).next(".inpputtext").addClass("redspan");
 						}
 						
 					}
 				}
 				else if(currQuestion.UserSelectedOptionId == currQuestion.Options[i].OptionId){
 					$("#"+currQuestion.Options[i].OptionId).prop( "checked","true" );				
-				$("#"+currQuestion.Options[i].OptionId).closest("label").find("img").attr("src","assets/images/radiobtnsel-v2.png")
-				$("#"+currQuestion.Options[i].OptionId).closest("label").find(".inpputtext").css("font-weight","bold");
+				$("#"+currQuestion.Options[i].OptionId).prev("img").attr("src","assets/images/radiobtnsel-v2.png")
+				$("#"+currQuestion.Options[i].OptionId).next(".inpputtext").css("font-weight","bold");
 
 				if(gRecordData.Status == "Completed" && (currQuestion.Options[i].iscorrect == undefined || currQuestion.Options[i].iscorrect == false ))
 				{
-					$("#"+currQuestion.Options[i].OptionId).closest("label").find(".inpputtext").addClass("redspan")
+					$("#"+currQuestion.Options[i].OptionId).next(".inpputtext").addClass("redspan")
 				}
 					
 				}
