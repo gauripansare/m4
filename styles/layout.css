@@ -85,6 +85,9 @@ div, p, span, input {
     outline: #ff8c00 solid 2px;
 }
 
+#progressdiv:focus,#titleheader:focus,#header1:focus{ /*for accessibility*/
+    outline: none
+}
 .mxwidth {
     max-width: 990px;
 }
