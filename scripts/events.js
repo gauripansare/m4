@@ -87,9 +87,23 @@ $(document).on("click", ".btnretry", function (event) {
     if ($(this).k_IsDisabled()) return;
     _Navigator.Next();
 });
-
+$(document).on("keyup", ".hintlink", function (event) {
+    if($(this).hasClass("disabled"))
+        return;
+    if (window.event) {
+        key = window.event.keyCode;
+    } else if (event) {
+        key = event.keyCode;
+    }
+    
+    if (key == 13) {
+        $(this).trigger('click');
+    }       
+});
 
 $(document).on("click", ".hintlink", function (event) {
+    if($(this).hasClass("disabled"))
+        return;
     if ($(this).hasClass("expanded")) {
         $(".hintlink").removeClass("expanded")
         $(".hintlink").attr("aria-expanded", "false")
@@ -178,15 +192,27 @@ $(document).on("change", ".computercheckbox", function (event) {
     else {
         $(".addtocart").k_disable();
     }
+    var group = $(this).attr("group");
+    var chkid =  $(this).attr("id")
     $(".computercheckbox").each(function () {
         if ($(this).prop("checked") == true) {
             $(this).prev("img").attr("src", "assets/images/checkbox-sel-v1.png");
             $(this).next(".inpputtext").css("font-weight", "bold");
+            if(group!=undefined && $(this).attr("group")!=undefined && group == $(this).attr("group"))
+            {
+                if(chkid!= $(this).attr("id") )
+                {
+                    $(this).prop("checked",false)
+                    $(this).prev("img").attr("src", "assets/images/checkbox-v1.png");
+                    $(this).next(".inpputtext").css("font-weight", "normal");
+                }
+            }
         }
         else {
             $(this).prev("img").attr("src", "assets/images/checkbox-v1.png");
             $(this).next(".inpputtext").css("font-weight", "normal");
         }
+        
     });
 
 })

@@ -387,7 +387,7 @@
     width: 100%;
 }
 .computerQuestion{
-    max-width: 500px;
+    max-width: 515px;
     float: left;
 }
 .shoppingcart{
@@ -548,6 +548,7 @@
 .questionoptions{
     float: left;
     margin-left: 10px;
+    
 }
 .carttotalprice{
     float: right;

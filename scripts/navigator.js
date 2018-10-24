@@ -150,6 +150,7 @@ var _Navigator = (function () {
                         $(this).fadeTo(600, 1)
 
                         OnPageLoad();
+                        $(".hintcontainer").hide();
                         if (_currentPageId == "p5")//  change to assessment id
                         {
 
@@ -177,6 +178,7 @@ var _Navigator = (function () {
                         $("#hintdiv").show();
                         if (_currentPageObject.hideHint != undefined && _currentPageObject.hideHint) {
                             $("#hintdiv").hide();
+                           
                         }
                         if (presentermode) {
                             _ModuleCommon.PresenterMode();
@@ -187,6 +189,7 @@ var _Navigator = (function () {
                         }
                         else {
                             $(".hintlink").k_disable();
+                           
                         }
                         _NData[_currentPageObject.pageId].isLoaded = true;
                         //$("h2.pageheading").focus();

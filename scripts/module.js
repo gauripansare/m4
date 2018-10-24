@@ -1,4 +1,6 @@
-﻿jQuery.fn.extend({
+﻿var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+var ipad = !!navigator.platform && /iPad|iPod/.test(navigator.platform);
+jQuery.fn.extend({
     k_enable: function () {
         return this.removeClass('disabled').attr("aria-disabled", "false").removeAttr("disabled");
     },

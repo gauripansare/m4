@@ -102,6 +102,10 @@ function showComputerQuestion() {
 		if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed") {
 			$(".computerwrapper input[type='button']").hide();
 		}
+		if (navigator.userAgent.toLowerCase().indexOf('safari')  )
+		{
+			$(".questionoptions").css({ "height": "unset","overflow-y":"unset" });
+		}
 		return;
 	}
 	else {
@@ -110,6 +114,10 @@ function showComputerQuestion() {
 				optionObj = $(".checkoption").clone();
 				optionObj.removeClass("checkoption");
 				optionObj.find("img").attr("src", "assets/images/checkbox-v1.png");
+				if(currQuestion.Options[i].checkboxgroup !=undefined)
+				{
+					optionObj.find("input").attr("group",currQuestion.Options[i].checkboxgroup)
+				}
 
 			}
 			else {
@@ -163,10 +171,18 @@ function showComputerQuestion() {
 	if (currentCompQuestionIndex == 11) {
 		$(".questionoptions").css({ "margin-top": "-15px" });
 		$(".questiontext").css({ "margin-top": "-20px" })
+		if (navigator.userAgent.toLowerCase().indexOf('safari') )
+		{
+			$(".questionoptions").css({ "height": "255px","overflow-y":"auto" });
+		}
 	}
 	else {
 		$(".questionoptions").css({ "margin-top": "unset" });
 		$(".questiontext").css({ "margin-top": "unset" })
+		if (navigator.userAgent.toLowerCase().indexOf('safari'))
+		{
+			$(".questionoptions").css({ "height": "unset","overflow-y":"unset" });
+		}
 	}
 	UpdateCart();
 	if (currQuestion.UserSelectedOptionId != undefined && currQuestion.UserSelectedOptionId != "") {

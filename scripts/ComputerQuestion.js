@@ -16,7 +16,7 @@ gComputerData = {
             QuestionId: "1",
             QuestionHeading: "Choose Your Processor",
             ReviewHeading: "Processor",
-            InstructionText: "<p>Now that you've chosen the type of computer you wish to purchase, it's time to start customizing it. Remember that different types of software have minimum requirements in terms of memory and processor power.</p><p>The processor, or CPU, is the brain of the computer and is responsible for executing instructions. You should choose a processor that meets or exceeds the minimum requirements of the software you will need to run. Roll your mouse over the software icons below to see the system requirements for each.</p><p> Select the <b>processor</b> you want for your computer and click <b>Add to Cart</b>.​​</p>",
+            InstructionText: "<p>Now that you've chosen the type of computer you wish to purchase, it's time to start customizing it. Remember that different types of software have minimum requirements in terms of memory and processor power.</p><p>The processor, or CPU, is the brain of the computer and is responsible for executing instructions. You should choose a processor that meets or exceeds the minimum requirements of the software you will need to run. Click the software icons below to see the system requirements for each.</p><p> Select the <b>processor</b> you want for your computer and click <b>Add to Cart</b>.​​</p>",
             QuestionText: "Select the <b>processor</b> you want for your computer and click <b>Add to Cart</b>.",
             Options: [
                 {
@@ -64,45 +64,38 @@ gComputerData = {
             QuestionId: "2",
             QuestionHeading: "How Much RAM?",
             ReviewHeading: "RAM",
-            InstructionText: "<p>Now it’s time to consider RAM. RAM is your computer’s main memory and holds programs, data, and instructions currently in use for quick access by the processor. Remember that different types of software have minimum requirements in terms of memory and processor power. Roll your mouse over the software icons below to see the system requirements for each.</p><p> Select the amount of <b>RAM</b> you would like in your computer and click <b>Add to Cart</b>.​​</p>",
+            InstructionText: "<p>Now it’s time to consider RAM. RAM is your computer’s main memory and holds programs, data, and instructions currently in use for quick access by the processor. Remember that different types of software have minimum requirements in terms of memory and processor power. Click the software icons below to see the system requirements for each.</p><p> Select the amount of <b>RAM</b> you would like in your computer and click <b>Add to Cart</b>.​​</p>",
             QuestionText: "Select the amount of <b>RAM</b> you would like in your computer and click <b>Add to Cart</b>.",
             Options: [
                 {
                     "OptionId": "1",
-                    "OptionText": "512 MB RAM [add $25]",
-                    "feedback": "This is not a good option for you. Note that your job description states that you will need to run the Microsoft Office suite of products, in addition to Adobe Photoshop. You may even consider Adobe’s Creative Suite 5 Design Premium at some point. While 512 MB for RAM is the minimum requirement for running many of the programs you’ll need, it is rarely a good idea to settle on the minimum. 1 GB is often the recommended minimum, with 2 or more GB preferred.",
+                    "OptionText": "1 GB RAM [add $25]",
+                    "feedback": "This is not a good option for you. Note that your job description states that you will need to run the Microsoft Office suite of products, in addition to Adobe Photoshop. You may even consider Adobe’s Creative Suite 5 Design Premium at some point. While 1 GB for RAM is the minimum requirement for running many of the programs you’ll need, it is rarely a good idea to settle on the minimum.",
                     points: 0,
                     cost: 25,
 
                 },
                 {
                     "OptionId": "2",
-                    "OptionText": "1 GB RAM [add $50]",
-                    "feedback": "This is an okay option for you, but probably not the best. Note that your job description states that you will need to run the Microsoft Office suite of products, in addition to Adobe Photoshop. You may even consider Adobe’s Creative Suite 5 Design Premium at some point. While many programs recommend 1 GB of RAM, the more RAM your computer has, the better it will perform.",
+                    "OptionText": "2 GB RAM [add $50]",
+                    "feedback": "This is an okay option for you, but probably not the best. Note that your job description states that you will need to run the Microsoft Office suite of products, in addition to Adobe Photoshop. You may even consider Adobe’s Creative Suite 5 Design Premium at some point. While many programs recommend 2 GB of RAM, the more RAM your computer has, the better it will perform.",
                     points: 2,
                     cost: 50,
                 },
                 {
                     "OptionId": "3",
-                    "OptionText": "2 GB RAM [add $75]",
-                    "feedback": "This is a good option for you. It’s only $25 more than 1 GB of RAM, but gives you twice as much memory. While 4 or more GB of RAM would be optimal, this is within your budget and is sufficient for what you intend to use your computer for.",
+                    "OptionText": "4 GB RAM [add $100]",
+                    "feedback": "This is a good option for you. It’s only $50 more than 2 GB of RAM, but gives you twice as much memory. While 8 or more GB of RAM would be optimal, this is within your budget and is sufficient for what you intend to use your computer for.",
                     points: 4,
-                    cost: 75,
+                    cost: 100,
                 },
                 {
                     "OptionId": "4",
-                    "OptionText": "4 GB RAM [add $100]",
-                    "feedback": "This is the best option for you. It’s only $25 more than 2 GB of RAM, but gives you twice as much memory. 6 GB would be ideal, but at a savings of $100 over that option, this is the best choice for your budget.",
+                    "OptionText": "8 GB RAM [add $200]",
+                    "feedback": "8 GB of RAM is ideal, but at $200, fully $100 more than 4 GB, this may  not be the best choice for somebody with a limited budget.",
                     points: 8,
-                    cost: 100,
-                    iscorrect: true
-                },
-                {
-                    "OptionId": "5",
-                    "OptionText": "6 GB RAM [add $200]",
-                    "feedback": "6 GB of RAM is ideal, but at $200, fully $100 more than 4 GB, this may not be the best choice for somebody with a limited budget.",
-                    points: 1,
                     cost: 200,
+                    iscorrect: true
                 }
 
 
@@ -117,7 +110,7 @@ gComputerData = {
             QuestionId: "3",
             QuestionHeading: "Size of Hard Drive",
             ReviewHeading: "Hard Drive",
-            InstructionText: "<p>The hard drive is the primary storage device in your computer. As such, it stores your operating system, applications, and data files. Remember that different types of software have minimum requirements in terms of how much space they require on your hard drive. Roll your mouse over the software icons below to see the system requirements for each. Which hard drive would you like in your computer?</p><p> Select the <b>hard drive</b> you would like in your computer and click <b>Add to Cart</b>.</p>",
+            InstructionText: "<p>The hard drive is the primary storage device in your computer. As such, it stores your operating system, applications, and data files. Remember that different types of software have minimum requirements in terms of how much space they require on your hard drive. Click the software icons below to see the system requirements for each. Which hard drive would you like in your computer?</p><p> Select the <b>hard drive</b> you would like in your computer and click <b>Add to Cart</b>.</p>",
             QuestionText: "Select the <b>hard drive</b> you would like in your computer and click <b>Add to Cart</b>.",
             Options: [
                 {
@@ -145,14 +138,14 @@ gComputerData = {
                 {
                     "OptionId": "4",
                     "OptionText": "2 TB Hard drive [add $99]",
-                    "feedback": "This is the best option for you. While it is the most expensive option, you are still well within your budget and at only $10 more than the 1 TB hard drive, this offers twice as much storage, so in terms of value, this is easily the best buy.",
+                    "feedback": "This is the best option for you. At only $10 more than the 1 TB hard drive, this offers twice as much storage, so in terms of value, this is easily a good buy.",
                     points: 5,
                     cost: 99,
                 },
                 {
                     "OptionId": "5",
                     "OptionText": "3 TB Hard drive [add $110]",
-                    "feedback": "This is the best option for you. While it is the most expensive option, you are still well within your budget and at only $11 more than the 2 TB hard drive, this offers twice as much storage, so in terms of value, this is easily the best buy.",
+                    "feedback": "This is the best option for you. While it is the most expensive option, you are still well within your budget and at only $11 more than the 2 TB hard drive, this offers a lot more storage, so in terms of value, this is easily the best buy.",
                     points: 8,
                     cost: 110,
                     iscorrect: true
@@ -175,7 +168,7 @@ gComputerData = {
             Options: [
                 {
                     "OptionId": "1",
-                    "OptionText": "250 GB portable external hard drive [add $55]",
+                    "OptionText": "250 GB portable external SSD drive [add $55]",
                     "feedback": "This is not the best option for you. External storage is important for backing up important documents and media and 250 GB may sound like a lot, but depending on your media needs, that could go quickly. For only $30 more, the 500 GB drive is a better choice.",
                     points: 0,
                     cost: 55,
@@ -183,14 +176,14 @@ gComputerData = {
                 },
                 {
                     "OptionId": "2",
-                    "OptionText": "500 GB portable external hard drive [add $85]",
+                    "OptionText": "500 GB portable external SSD drive [add $85]",
                     "feedback": "This is a good option for you. External storage is important for backing up important documents and media. To start, 500 GB is probably enough, but you may find yourself needing another external drive sooner than you think.",
                     points: 4,
                     cost: 85,
                 },
                 {
                     "OptionId": "3",
-                    "OptionText": "1 TB portable external hard drive [add $139]",
+                    "OptionText": "1 TB portable external SSD drive [add $139]",
                     "feedback": "This is probably the best option if you can stay within your budget and still afford it. External storage is important for backing up important documents and media, and a portable hard drive offers the most backup storage options.",
                     points: 6,
                     cost: 139,
@@ -214,16 +207,16 @@ gComputerData = {
             Options: [
                 {
                     "OptionId": "1",
-                    "OptionText": "CD R/W 700 MB Capacity with 20 discs [add $49]",
-                    "feedback": "This is probably not a good choice for you. For the most part, CDs have been replaced by DVDs, which have a much larger storage capacity. Most software packages also now require a DVD drive.",
+                    "OptionText": "No optical drive",
+                    "feedback": "This is a viable option. Most notebook computers today do not include an optical drive.",
                     points: 0,
-                    cost: 49,
+                    cost: 0,
 
                 },
                 {
                     "OptionId": "2",
                     "OptionText": "DVD R/W Single Layer 4.7 GB Capacity with 20 discs [add $89]",
-                    "feedback": "In terms of optical drives, this is a great choice for you. It’s within your budget and offers a lot more storage capacity than CD-ROMs. If you could swing it, the CD-RW/DVD-RW combo drive offers the most flexibility, but on your budget, this is a fine choice.",
+                    "feedback": "In terms of optical drives, this is a great choice for you. It’s within your budget.",
                     points: 5,
                     cost: 89,
                     iscorrect: true
@@ -238,7 +231,7 @@ gComputerData = {
                 },
                 {
                     "OptionId": "4",
-                    "OptionText": "CD-RW/DVD-RW Combo Drive [add $109]",
+                    "OptionText": "Blu-ray Disc burner [add $109]",
                     "feedback": "This is probably the best option, as it offers the most flexibility, but it might be a little steep at $109. Still, if you can afford it, it’s a good choice in terms of optical drives.",
                     points: 5,
                     cost: 109,
@@ -391,7 +384,7 @@ gComputerData = {
             QuestionId: "9",
             QuestionHeading: "Video Output Options",
             ReviewHeading: "Monitor/Screen",
-            InstructionText: "<p>Now it’s time to consider your video output. You will need to select a video card, which will affect the quality of your presentations. You also need to decide on the size of your monitor. If you chose a notebook, you may want to consider a separate monitor for when you are at the office.</p><p>Select the <b>monitor/screen</b> you will need from these options and click <b>Add to Cart<b/>.</p>",
+            InstructionText: "<p>Now it’s time to consider your video output. You will need to select a video card, which will affect the quality of your presentations. You also need to decide on the size of your monitor. If you chose a notebook, you may want to consider a separate monitor for when you are at the office.</p><p>Select the monitor/screen you will need from these options. If you selected a Notebook computer, you can choose both a Notebook screen  size and an external monitor. Click <b>Add to Cart</b>.</p>",
             QuestionText: "<p>Select the <b>monitor/screen</b> you will need from these options and click <b>Add to Cart<b/>.</p>",
             Options: [
                 {
@@ -400,7 +393,8 @@ gComputerData = {
                     "feedback": "Good. If this will be your only monitor, it’s best that it be fairly large, but still portable enough.",
                     points: 5,
                     cost: 99,
-                    iscorrect: true
+                    iscorrect: true,
+                    checkboxgroup:"grp1"
 
                 },
                 {
@@ -409,6 +403,8 @@ gComputerData = {
                     "feedback": "This is not the best choice. While it is portable and probably lighter, the small screen could become cumbersome if this is your only monitor.",
                     points: 0,
                     cost: 69,
+                    checkboxgroup:"grp1"
+
                 },
                 {
                     "OptionId": "3",
@@ -416,27 +412,35 @@ gComputerData = {
                     "feedback": "This is a pretty good choice. However, you might find that if it is within your budget, the 17.3-inch screen offers greater flexibility.",
                     points: 3,
                     cost: 79,
+                    checkboxgroup:"grp1"
+
                 },
                 {
                     "OptionId": "4",
-                    "OptionText": "22” CRT Desktop Monitor [add $99]",
-                    "feedback": "This is not a very good choice. CRT monitors are bulky and use a lot of energy. They have generally been replaced with smaller, more energy-efficient LCD screens.",
+                    "OptionText": '18" LCD Desktop Monitor [add $99]',
+                    "feedback": "This is not a very good choice. You may find the screen too small to  work at comfortably.",
                     points: 0,
                     cost: 99,
+                    checkboxgroup:"grp2"
+
                 },
                 {
                     "OptionId": "5",
-                    "OptionText": '22" LCD Desktop Monitor [add $179]',
+                    "OptionText": '24" LCD Desktop Monitor [add $179]',
                     "feedback": "From a cost perspective, this is the best choice. LCD screens are now found on most desktop and notebook computers.",
                     points: 3,
                     cost: 179,
+                    checkboxgroup:"grp2"
+
                 },
                 {
                     "OptionId": "6",
-                    "OptionText": '22" Plasma Desktop Monitor [add $379]',
-                    "feedback": "Given your budget, this is probably not the best choice. Plasma monitors are generally more expensive and larger and are more often used in conference rooms.",
+                    "OptionText": '30" Curved Desktop Monitor [add $379]',
+                    "feedback": "Given your budget, this is probably not the best choice. Large curved monitors are generally more expensive.",
                     points: 1,
                     cost: 379,
+                    checkboxgroup:"grp2"
+
                 }
 
 
@@ -444,7 +448,8 @@ gComputerData = {
 
             ],
             IsAnswered: false,
-            Feedback: "You can select another monitor/screen and click <b>Update cart</b>. If no change, click <b>Next</b> to proceed."
+            Feedback: "You can select another monitor/screen and click <b>Update cart</b>. If no change, click <b>Next</b> to proceed.",
+            type: "checkbox"
 
 
         },
@@ -466,7 +471,7 @@ gComputerData = {
                 {
                     "OptionId": "2",
                     "OptionText": "Ergonomic Keyboard [add $49]",
-                    "feedback": "This is a good choice for you, as ergonomic keyboards are designed to put your wrists in a more natural position in order to reduce strain.",
+                    "feedback": "This is a good choice for you, as ergonomic keyboards are designed to put your wrists in a more natural position to reduce strain.",
                     points: 3,
                     cost: 49,
                     iscorrect: true
@@ -474,7 +479,7 @@ gComputerData = {
                 {
                     "OptionId": "3",
                     "OptionText": "USB Wireless Ergonomic Keyboard [add $89]",
-                    "feedback": "Considering your budget, this is probably not the best choice. But, if you can afford it, it’s a better choice than a regular full-size keyboard, since the ergonomic keyboard puts your wrists in a more natural position in order to reduce strain.",
+                    "feedback": "Considering your budget, this is probably not the best choice. But, if you can afford it, it’s a better choice than a regular full-size keyboard, since the ergonomic keyboard puts your wrists in a more natural position to reduce strain.",
                     points: 2,
                     cost: 89,
                 }
@@ -505,14 +510,14 @@ gComputerData = {
                 {
                     "OptionId": "2",
                     "OptionText": "USB Wireless Ergonomic Mouse [add $69]",
-                    "feedback": "Considering your budget, this is probably not the best choice. But, if you can afford it, it’s a better choice than a regular wireless mouse, since the ergonomic mouse puts your wrist in a more natural position in order to reduce strain.",
+                    "feedback": "Considering your budget, this is probably not the best choice. But, if you can afford it, it’s a better choice than a regular wireless mouse, since the ergonomic mouse puts your wrist in a more natural position to reduce strain.",
                     points: 3,
                     cost: 69,
                 },
                 {
                     "OptionId": "3",
                     "OptionText": "Ergonomic Mouse [add $39]",
-                    "feedback": "This is a good choice for you, as ergonomic mice are designed to put your wrist in a more natural position in order to reduce strain.",
+                    "feedback": "This is a good choice for you, as ergonomic mice are designed to put your wrist in a more natural position to reduce strain.",
                     points: 2,
                     cost: 39,
                     iscorrect: true
@@ -530,8 +535,8 @@ gComputerData = {
             QuestionId: "12",
             QuestionHeading: "Output Devices",
             ReviewHeading: "Printer",
-            InstructionText: "<p>Here, you need to decide on your printing output needs. Because you are frequently printing catalog updates, quality is a point of concern for you as well.</p><p>Select the best <b>printer</b> you will need from these options and then click <b>Add to Cart</b>.</p>",
-            QuestionText: "<p>Select the best <b>printer</b> you will need from these options and then click <b>Add to Cart</b>.</p>",
+            InstructionText: "<p>Here, you need to decide on your printing output needs. Because you are frequently printing catalog updates, quality is an important factor.</p><p>Select the best <b>printer(s)</b> you will need from these options and then click <b>Add to Cart</b>.</p>",
+            QuestionText: "<p>Select the best <b>printer(s)</b> you will need from these options and then click <b>Add to Cart</b>.</p>",
             Options: [
                 {
                     "OptionId": "1",
@@ -580,7 +585,7 @@ gComputerData = {
                 {
                     "OptionId": "7",
                     "OptionText": "Portable Black & White Thermal Printer 400 x 400 dpi [add $35]",
-                    "feedback": "This is probably a good choice for you, provided you have also chosen a higher-quality printer to have while you are in the office. The lack of quality with a thermal printer dictates that quality shouldn’t matter if you are printing on the spot, so color is really not that important. The cheaper black and white should best suit most needs.",
+                    "feedback": "This is probably a good choice for you, provided you have also chosen a higher-quality printer to have while you are in the office. The lack of quality with a thermal printer dictates that quality shouldn’t matter if you are printing on the spot, so color is not that important. The cheaper black and white should best suit most needs.",
                     points: 3,
                     cost: 35,
                     iscorrect: true
@@ -588,7 +593,7 @@ gComputerData = {
                 {
                     "OptionId": "8",
                     "OptionText": "Portable Two-Color Thermal Printer 400 x 400 dpi [add $79]",
-                    "feedback": "This is not really a good choice, especially if you have not chosen a higher-quality printer as well. The lack of quality with a thermal printer dictates that quality shouldn’t matter if you are printing on the spot, so color is really not that important. The cheaper black and white thermal printer should best suit most needs.",
+                    "feedback": "This is not really a good choice, especially if you have not chosen a higher-quality printer as well. The lack of quality with a thermal printer dictates that quality shouldn’t matter if you are printing on the spot, so color is not that important. The cheaper black and white thermal printer should best suit most needs.",
                     points: 0,
                     cost: 79,
                 }
@@ -596,7 +601,8 @@ gComputerData = {
 
             ],
             IsAnswered: false,
-            Feedback: "You can select another printer and click <b>Update cart</b>. If no change, click <b>Next</b> to proceed."
+            Feedback: "You can select another printer and click <b>Update cart</b>. If no change, click <b>Next</b> to proceed.",
+            type:"checkbox"
 
 
 
