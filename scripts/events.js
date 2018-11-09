@@ -44,6 +44,9 @@ $(document).on('click', "#continuebtn", function (event) {
 var hotspotclicked = false;;
 var hotspot;
 $(document).on("click", ".divHotSpot", function (event) {
+ if (_Navigator.IsPresenterMode()) {
+        return;
+    }
     event.preventDefault();
     $(this).k_disable()
     if (hotspotclicked || _Navigator.IsAnswered())
@@ -87,45 +90,51 @@ $(document).on("click", ".btnretry", function (event) {
     if ($(this).k_IsDisabled()) return;
     _Navigator.Next();
 });
-$(document).on("keyup", ".hintlink", function (event) {
-    if($(this).hasClass("disabled"))
-        return;
-    if (window.event) {
-        key = window.event.keyCode;
-    } else if (event) {
-        key = event.keyCode;
-    }
-    
-    if (key == 13) {
-        $(this).trigger('click');
-    }       
-});
+
 
 $(document).on("click", ".hintlink", function (event) {
-    if($(this).hasClass("disabled"))
-        return;
+    if ($(this).k_IsDisabled()) return;
+   var open = "open;"
     if ($(this).hasClass("expanded")) {
         $(".hintlink").removeClass("expanded")
         $(".hintlink").attr("aria-expanded", "false")
         $(".hintcontainer").slideUp(100);
+        $(".pageheading").focus();
+        open = "close";
     }
     else {
         $(".hintcontainer").slideDown(100, function () {
             $(".hintlink").addClass("expanded");
-            $(".hintlink").attr("aria-expanded", "true");
+            $(".hintlink").attr("aria-expanded", "true");  
+            $(".hintcontainer .hintcontent").find("p:first").attr("tabindex","-1")
+            if(iOS)
+            {
+                $(".hintcontainer .hintcontent").find("p:first").attr("role","text")
+            }
+            $(".hintcontainer .hintcontent").find("p:first").focus(); 
         });
+    }
+    if (_Navigator.IsRevel()) {
+        LifeCycleEvents.OnInteraction("Hint button click. Hint " + open)
+    }
+     if(touchend){
+        $(this).mouseout();
+        touchend = false;
+    }
+   
+});
+$(document).on("click", ".closehintlink", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    $(".hintlink").removeClass("expanded")
+    $(".hintlink").attr("aria-expanded", "false")
+    $(".hintcontainer").slideUp(100,function(){$("h2.pageheading").focus();});
+    if (_Navigator.IsRevel()) {
+        LifeCycleEvents.OnInteraction("Hint button click. Hint closed")
     }
 
 });
-$(document).on("click", ".closehintlink", function (event) {
-
-    $(".hintlink").removeClass("expanded")
-    $(".hintlink").attr("aria-expanded", "false")
-    $(".hintcontainer").slideUp(100);
-
-
-});
 $(document).on("keydown", "input.EmbededElement", function (event) {
+    if ($(this).k_IsDisabled()) return;
     if ($(this).attr("disabled") || $(this).hasClass("disabled")) {
         event.preventDefault();
         return;
@@ -144,8 +153,7 @@ $(window).resize(function () {
     _ModuleCommon.OrientationChange();
 });
 
-$(window).resize(function () {
-});
+
 
 $(document).on('click', ".activityimg", function (event) {
     return;
@@ -155,25 +163,44 @@ $(document).on('click', ".activityimg", function (event) {
 });
 
 $(document).on('click', ".startbtn", function (event) {
+    if ($(this).k_IsDisabled()) return;
     _Navigator.Next();
     //_Navigator.LoadPage("p7")
 });
 $(document).on('click', ".reviewsubmit", function (event) {
+    if ($(this).k_IsDisabled()) return;
     _Navigator.Next();
 });
-$(document).on('mouseover', ".hintlink", function (event) {
+var touchend = false;
+$(document).on('touchstart', ".hintlink", function (event) {
+    mouseenter();
+    touchend = false;
+});
+$(document).on('touchend ', ".hintlink", function (event) {
+    mouseleave();
+    touchend = true;
+});
+
+
+$(document).on('mouseenter', ".hintlink", function (event) {
+    mouseenter();
+});
+
+$(document).on('mouseleave', ".hintlink", function (event) {
+    mouseleave();
+});
+
+function mouseenter(){
     $(".hintlink .hintlinkspan").css({ "color": "#b22222", "border-bottom": "1px solid #b22222" })
-    $(this).find("path").css({ "fill": "#b22222" })
-});
-
-$(document).on('mouseout', ".hintlink", function (event) {
+    $(".hintlink").find("path").css({ "fill": "#b22222" })    
+}
+function mouseleave(){
     $(".hintlink .hintlinkspan").css({ "color": "#047a9c", "border-bottom": "1px solid #047a9c" })
-    $(this).find("path").css({ "fill": "#047a9c" })
-});
+    $(".hintlink").find("path").css({ "fill": "#047a9c" })
+}
 
-$(document).on("change", ".assessmentradio", function (event) {
-    $(".assessmentSubmit").k_enable();
-});
+
+
 $(document).on("change", ".computerradio", function (event) {
     $(".addtocart").k_enable();
     $(".computerradio").each(function () {
@@ -217,9 +244,21 @@ $(document).on("change", ".computercheckbox", function (event) {
 
 })
 
+
+$(document).on("change", ".assessmentradio", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    if ($(this).hasClass("disabled"))
+        return;
+    $(".assessmentSubmit").k_enable();
+});
 $(document).on("click", ".assessmentSubmit", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    if (_Navigator.IsRevel()) {
+        LifeCycleEvents.OnSubmit();
+    }
     gRecordData.Questions[currentQuestionIndex].UserSelectedOptionId = $("input[type='radio']:checked").attr("id");
     gRecordData.Questions[currentQuestionIndex].IsAnswered = true;
+    _Navigator.GetBookmarkData();
     _Navigator.Next();
 });
 $(document).on("click", ".addtocart", function (event) {
@@ -235,7 +274,7 @@ $(document).on("click", ".addtocart", function (event) {
 
     }
     gComputerData.Questions[currentCompQuestionIndex].IsAnswered = true;
-    UpdateCart();
+    _Computer.UpdateCart(true);
 
     _ModuleCommon.EnableNext()
 
@@ -243,7 +282,9 @@ $(document).on("click", ".addtocart", function (event) {
 $(document).on("click", ".changecomputer", function (event) {
     $("#div_feedback .div_fdkcontent").html("");
     $("#div_feedback").hide();
-    $('html,body').animate({ scrollTop: document.body.scrollHeigh }, 500, function () { });
+    $('html,body').animate({ scrollTop: document.body.scrollHeigh }, 500, function () {
+        $("h2.pageheading").focus();
+     });
     $(".divHotSpot").k_enable();
     $(".divHotSpot").removeClass("hotspotclicked")
 })
@@ -258,7 +299,7 @@ $(document).on("click", ".questiontab", function () {
 
     var qid = parseInt($(this).attr("questionid"));
     currentCompQuestionIndex = qid - 1;
-    showComputerQuestion();
+    _Computer.showComputerQuestion();
 
 });
 $(document).on("click", ".tooltipicon", function (event) {
@@ -282,8 +323,17 @@ $(document).on("click", "#checkboxCheckedUnchecked", function (event) {
 });
 
 $(document).on('click', ".inputcircle", function (event) {
+    if ($(this).k_IsDisabled()) return;
     $(this).next(".inpputtext").trigger("click");
 });
 
 
+
+window.onload = function () {
+    _ScormUtility.Init();
+}
+
+window.onunload = function () {
+    _ScormUtility.End();
+}
 

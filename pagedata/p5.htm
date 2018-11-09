@@ -19,32 +19,31 @@
                 <div class="computerwrapper">
                     <div class="computerQuestion font14">
                         <div class="tabwrapper">
-                            <img height="35px" width="36px" class="questiontab" src="assets/images/device1.png"
+                            <img height="35px" width="36px" role="button" aria-label="Choose your Processor" class="questiontab" src="assets/images/device1.png"
                                 questionid="1" />
-                            <img height="35px" width="36px" class="questiontab" src="assets/images/device2.png"
+                            <img height="35px" width="36px" role="button" aria-label="How Much RAM?"   class="questiontab" src="assets/images/device2.png"
                                 questionid="2" />
-                            <img height="35px" width="36px" class="questiontab" src="assets/images/device3.png"
+                            <img height="35px" width="36px" role="button" aria-label="Size of Hard Drive"  class="questiontab" src="assets/images/device3.png"
                                 questionid="3" />
-                            <img height="35px" width="36px" class="questiontab" src="assets/images/device4.png"
+                            <img height="35px" width="36px" role="button" aria-label="External Storage"  class="questiontab" src="assets/images/device4.png"
                                 questionid="4" />
-                            <img height="35px" width="36px" class="questiontab" src="assets/images/device5.png"
+                            <img height="35px" width="36px" role="button" aria-label="Communication Devices"  class="questiontab" src="assets/images/device5.png"
                                 questionid="6" />
-                            <img height="35px" width="36px" class="questiontab" src="assets/images/device6.png"
+                            <img height="35px" width="36px" role="button" aria-label="Video Output Options"  class="questiontab" src="assets/images/device6.png"
                                 questionid="8" />
-                            <img height="35px" width="36px" class="questiontab" src="assets/images/device7.png"
+                            <img height="35px" width="36px" role="button" aria-label="Input Devices"  class="questiontab" src="assets/images/device7.png"
                                 questionid="10" />
-                            <img height="35px" width="36px" class="questiontab" src="assets/images/device8.png"
+                            <img height="35px" width="36px" role="button" aria-label="Output Devices"  class="questiontab" src="assets/images/device8.png"
                                 questionid="12" />
                         </div>
                         <div class="questionwrapper">
-                            <div class="questiontext font14"></div>
-                            <div class="questionoptions font14">
-                                <fieldset>
-                                    <legend aria-label="options"></legend>
+                            <fieldset>                                
+                                    <legend aria-label=""><div class="questiontext font14"></div>
+                                    </legend>                                
+                                <div class="questionoptions font14">
                                     <!-- Option come here -->
-
-                                </fieldset>
-                            </div>
+                                </div>
+                            </fieldset>
                             <div class="buttonwrapper"> <input type="button" value="Add to Cart" class="addtocart" />
                                 <input type='button' value='Build My Computer' class='buildcomputer' />
                             </div>
@@ -52,11 +51,16 @@
                         <div class="toolptipwrapper">
                             <div class="tooltipheading">Click for System Requirements</div>
                             <div class=tooltips>
-                                <img height="25px" width="25px" tooltipid="t1" class="tooltipicon" src="assets/images/photoshop.jpg" />
-                                <img height="25px" width="25px" tooltipid="t2" class="tooltipicon"" src=" assets/images/word.jpg"/>
-                                    <img height="25px" width="25px" tooltipid="t3" class="tooltipicon" src="assets/images/powerpoint.jpg" />
-                                <img height="25px" width="25px" tooltipid="t4" class="tooltipicon" src="assets/images/office.jpg" />
-                                <img height="25px" width="25px" tooltipid="t5" class="tooltipicon" src="assets/images/skype1.jpg" />
+                                <img height="25px" width="25px" tooltipid="t1" class="tooltipicon" aria-label="Click for System Requirements for photoshop"
+                                    role="button" src="assets/images/photoshop.jpg" />
+                                <img height="25px" width="25px" tooltipid="t2" class="tooltipicon"" src=" assets/images/word.jpg"
+                                    aria-label="Click for System Requirements for word" role="button" />
+                                <img height="25px" width="25px" tooltipid="t3" class="tooltipicon" aria-label="Click for System Requirements for powerpoint"
+                                    role="button" src="assets/images/powerpoint.jpg" />
+                                <img height="25px" width="25px" tooltipid="t4" class="tooltipicon" aria-label="Click for System Requirements for outlook"
+                                    role="button" src="assets/images/office.jpg" />
+                                <img height="25px" width="25px" tooltipid="t5" class="tooltipicon" aria-label="Click for System Requirements for skype"
+                                    role="button" src="assets/images/skype1.jpg" />
                             </div>
                         </div>
                     </div>
@@ -83,12 +87,11 @@
     <img id="radioCheckedUnchecked" src="assets/images/radiobtn-v2.png" />
     <input class="computerradio font14" type="radio" name="radio1" value="Good to Use" id="1">
     <label class="inpputtext" for="1"></label>
-    <span class="inputcircle font14"></span>
+
 </div>
 
 <div class="checkoption font14" style="display: none;width: 100%;float: left;margin-top: 10px;position: relative;">
     <img id="checkboxCheckedUnchecked" src="assets/images/checkbox-v1.png" />
     <input class="computercheckbox font14" type="checkbox" name="checkbox1" value="Good to Use" id="1">
     <label class="inpputtext" for="1"></label>
-    <span class="inputcircle font14"></span>
 </div>

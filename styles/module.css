@@ -267,7 +267,7 @@
         -webkit-box-sizing: border-box;
     }
     
-    .assessmentradio:checked + .inputcircle:before ,#Summary input[type="radio"]:checked + .inputcircle:before  {
+    .assessmentradio:checked + .inpputtext .inputcircle:before ,#Summary input[type="radio"]:checked + .inpputtext .inputcircle:before  {
         content: '';   
         height: 15px;
         width: 15px;
@@ -281,7 +281,7 @@
         -webkit-border-radius: 100%;
     }
     
-    .assessmentradio:checked + .inputcircle ,#Summary input[type="radio"]:checked + .inputcircle {
+    .assessmentradio:checked + .inpputtext .inputcircle ,#Summary input[type="radio"]:checked + .inpputtext .inputcircle {
         color: #047a9c;
     }
     
@@ -364,10 +364,15 @@
     .question-band{
         float: left;
         margin-left: 8%;
+    position: relative;
     }
    .quetiontext{
        margin-left: 20px;
    }
+.questioninnerwrapper .inpputtext , #Summary .inpputtext{
+    display: block;
+    margin: 5px 0;
+}
    .chkbox{
        margin-left: -18px;
    }

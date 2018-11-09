@@ -384,7 +384,7 @@ gComputerData = {
             QuestionId: "9",
             QuestionHeading: "Video Output Options",
             ReviewHeading: "Monitor/Screen",
-            InstructionText: "<p>Now it’s time to consider your video output. You will need to select a video card, which will affect the quality of your presentations. You also need to decide on the size of your monitor. If you chose a notebook, you may want to consider a separate monitor for when you are at the office.</p><p>Select the monitor/screen you will need from these options. If you selected a Notebook computer, you can choose both a Notebook screen  size and an external monitor. Click <b>Add to Cart</b>.</p>",
+            InstructionText: "<p>Now it’s time to consider your video output. You will need to select a video card, which will affect the quality of your presentations. You also need to decide on the size of your monitor. If you chose a notebook, you may want to consider a separate monitor for when you are at the office.</p><p>Select the <b>monitor/screen</b> you will need from these options. If you selected a Notebook computer, you can choose both a Notebook screen  size and an external monitor. Click <b>Add to Cart</b>.</p>",
             QuestionText: "<p>Select the <b>monitor/screen</b> you will need from these options and click <b>Add to Cart<b/>.</p>",
             Options: [
                 {
