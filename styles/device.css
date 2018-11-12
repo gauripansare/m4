@@ -69,6 +69,7 @@
     .question-band{
         margin-left: 13%;
     }
+
 }
 
 @media screen and (max-width : 500px) {
@@ -103,6 +104,9 @@
     }
     .questioninnerwrapper{
         padding-right: 7px;
+    }
+    .beginbuild,.changecomputer{
+        font-size: 12px !important
     }
 
 }

@@ -373,6 +373,10 @@
     display: block;
     margin: 5px 0;
 }
+#Summary .inpputtext{
+    display: block;
+    margin: 0 0;
+}
    .chkbox{
        margin-left: -18px;
    }
@@ -553,7 +557,7 @@
 .questionoptions{
     float: left;
     margin-left: 10px;
-    
+    width: 100%;
 }
 .carttotalprice{
     float: right;

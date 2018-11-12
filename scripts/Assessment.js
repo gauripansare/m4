@@ -181,7 +181,7 @@ var _Assessment = (function () {
 				questionObj = $("#Question").clone();
 				currQustion = gRecordData.Questions[b]
 				questionObj.find(".quetiontext").html("<span style='font-size:0px'>Question Number </span><span>" + (b + 1) + ") &nbsp;</span>" + currQustion.QuestionText)
-				var radioname = "radio" + gRecordData.Questions[b].QuestionId;
+				var radioname = "radio" +b + Math.random();
 
 				questionObj.find(".question-band").empty();
 
@@ -189,11 +189,11 @@ var _Assessment = (function () {
 				for (var i = 0; i < currQustion.Options.length; i++) {
 					optionObj = $(".Option").clone();
 					optionObj.find("input").attr("id", "question" + gRecordData.Questions[b].QuestionId + currQustion.Options[i].OptionId)
-					optionObj.find("input").attr("name", "radiobutton"+gRecordData.Questions[b].QuestionId )
+					
 					optionObj.find(".inpputtext .ltext").html(currQustion.Options[i].OptionText)
 					optionObj.find(".inpputtext").attr("for", "question" + gRecordData.Questions[b].QuestionId + currQustion.Options[i].OptionId)
 					optionObj.removeClass("Option");
-					optionObj.find("input").attr("name", radioname)
+					optionObj.find("input").attr("name",radioname)
 					optionObj.show();
 					if (isIE11version || isIEEdge || isSafari) {
 						optionObj.find("input").attr("aria-label", optionObj.find(".inpputtext").text());
@@ -252,7 +252,7 @@ var _Assessment = (function () {
 
 			}
 			
-			$("#Summary input[type='radio']").each(function(){$(this).unwrap()});
+			//$("#Summary input[type='radio']").each(function(){$(this).unwrap()});
 			if (isIE11version) {
 				this.SetCustomarialabelforRadio();
 

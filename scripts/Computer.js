@@ -96,7 +96,7 @@ var _Computer = (function () {
 						optionObj.find("img").attr("src", "assets/images/radiobtn-v2.png");
 					}
 					//optionObj.attr("for", currQuestion.Options[i].OptionId);
-					optionObj.find("input").attr("name","options")
+					optionObj.find("input").attr("name", "options")
 					optionObj.find("input").attr("id", currQuestion.Options[i].OptionId);
 					optionObj.find("input").css("position", "absolute");
 					optionObj.find(".inpputtext").html(currQuestion.Options[i].OptionText);
@@ -105,6 +105,7 @@ var _Computer = (function () {
 					optionObj.show();
 
 					$(".questionoptions").append(optionObj);
+					$("#" + currQuestion.Options[i].OptionId).unwrap();
 					if (currQuestion.Options[i].iscorrect != undefined && currQuestion.Options[i].iscorrect && gRecordData.Status == "Completed") {
 						optionObj.find(".inpputtext").addClass("greenspan")
 					}
@@ -134,13 +135,14 @@ var _Computer = (function () {
 
 						$("#linknext").k_enable();
 
-					}
+					}				
+					
 				}
 				$(".addtocart").show();
 
 			}
 			if (currentCompQuestionIndex == 11) {
-				$(".questionoptions").css({ "margin-top": "-15px" });
+				$(".questionoptions").css({ "margin-top": "-10px" });
 				$(".questiontext").css({ "margin-top": "-20px" })
 				if (navigator.userAgent.toLowerCase().indexOf('safari')) {
 					$(".questionoptions").css({ "height": "255px", "overflow-y": "auto" });
@@ -215,9 +217,9 @@ var _Computer = (function () {
 			$(".addtocart").attr("value", "Update cart");
 			$(".questiontabselected").removeClass("questiontabselected")
 			$(".questiontab").each(function () {
-				var alabel = $(this).attr("aria-label").indexOf("selected") >=0 ? $(this).attr("aria-label").substring(0, $(this).attr("aria-label").indexOf("selected")):
-				$(this).attr("aria-label");
-				$(this).attr("aria-label",alabel.trim())
+				var alabel = $(this).attr("aria-label").indexOf("selected") >= 0 ? $(this).attr("aria-label").substring(0, $(this).attr("aria-label").indexOf("selected")) :
+					$(this).attr("aria-label");
+				$(this).attr("aria-label", alabel.trim())
 				var questionid = parseInt($(this).attr("questionid"));
 				if (gComputerData.Questions[questionid - 1].UserSelectedOptionId != undefined && gComputerData.Questions[questionid - 1].UserSelectedOptionId != "" || currentCompQuestionIndex == questionid - 1) {
 					$(this).k_enable();
@@ -227,19 +229,18 @@ var _Computer = (function () {
 				}
 				if ((currentCompQuestionIndex + 1) == questionid) {
 					$(this).addClass("questiontabselected")
-					$(this).attr("aria-selected","true")
+					$(this).attr("aria-selected", "true")
 					alabel = $(this).attr("aria-label") + " selected";
-					$(this).attr("aria-label",alabel)
+					$(this).attr("aria-label", alabel)
 				}
-				else
-				{
-					$(this).attr("aria-selected","false")
+				else {
+					$(this).attr("aria-selected", "false")
 				}
 			})
 			if ($(".questiontabselected").length == 0)//for question 5,7,9
 			{
 				$(".questiontab[questionid='" + currentCompQuestionIndex + "']").addClass("questiontabselected")
-				
+
 			}
 			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered) {
 				$(".buildcomputer").show();
@@ -254,23 +255,22 @@ var _Computer = (function () {
 			this.ShowFeedback(shiftfocus);
 		},
 		ShowFeedback: function (shiftfocus) {
-			shiftfocus == shiftfocus ==undefined ?  shiftfocus : false;
+			shiftfocus = shiftfocus != undefined ? shiftfocus : false;
 			currQuestion = gComputerData.Questions[currentCompQuestionIndex];
 
 			if (currQuestion.UserSelectedOptionId != undefined && gComputerData.Status != "Completed") {
 				$("#div_feedback").show();
-				$("#div_feedback .div_fdkcontent").html("<p>"+currQuestion.Feedback+"</p>")
+				$("#div_feedback .div_fdkcontent").html("<p>" + currQuestion.Feedback + "</p>")
 				$("#div_feedback").css("display", "inline-block");
-				if (iOS && shiftfocus) {
-					$("#div_feedback p:first").attr("role", "text")
-				}
-				$('html,body').animate({ scrollTop: document.body.scrollHeight }, 1000, function () { 
-					if(shiftfocus)
-					{	
-						$("#div_feedback p:first").attr("tabindex", "-1")
-						$("#div_feedback p:first").focus();					
+				if (shiftfocus) {
+					if (iOS) {
+						$("#div_feedback p:first").attr("role", "text")
 					}
-				});
+					$('html,body').animate({ scrollTop: document.body.scrollHeight }, 1000, function () {
+						$("#div_feedback p:first").attr("tabindex", "-1")
+						$("#div_feedback p:first").focus();
+					});
+				}
 			}
 			else {
 				$("#div_feedback").hide();
@@ -359,6 +359,8 @@ var MCQTooltip = MCQTooltip || function () {
 			_container = $(".computerwrapper");
 			if (_container.find(".tooltiptext").length > 0 && _element.attr("tooltipid") == $(".navtipopen").attr("tooltipid")) {
 				this.Clear();
+				
+				$("h2.pageheading").focus();
 			}
 			else {
 				this.Clear();
@@ -368,7 +370,7 @@ var MCQTooltip = MCQTooltip || function () {
 				_container.prepend(tooltip);
 				var url = "pagedata/tooltipdata/" + tooltipData[tooltipid][0].tooltipurl;
 				var alabel = _element.attr("aria-label") + " selected";
-				_element.attr("aria-label",alabel)
+				_element.attr("aria-label", alabel)
 				_element.addClass("navtipopen")
 				$(".tooltiptext .tooltipurl").load(url, function () {
 
@@ -399,9 +401,9 @@ var MCQTooltip = MCQTooltip || function () {
 		Clear: function () {
 			$(".tooltiptext").remove();
 			$(".navtipopen").removeClass("navtipopen");
-			$(".tooltipicon").each(function(){
-				var alabel = $(this).attr("aria-label").indexOf("selected")>=0 ? $(this).attr("aria-label").substring(0,$(this).attr("aria-label").indexOf("selected")).trim():$(this).attr("aria-label");
-				$(this).attr("aria-label",alabel);
+			$(".tooltipicon").each(function () {
+				var alabel = $(this).attr("aria-label").indexOf("selected") >= 0 ? $(this).attr("aria-label").substring(0, $(this).attr("aria-label").indexOf("selected")).trim() : $(this).attr("aria-label");
+				$(this).attr("aria-label", alabel);
 			})
 		}
 	}

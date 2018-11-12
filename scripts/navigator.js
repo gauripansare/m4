@@ -223,20 +223,22 @@ var _Navigator = (function () {
             }
         },
         Prev: function () {
-
+             if (_Navigator.IsRevel()) {
+                LifeCycleEvents.OnInteraction("Previous link click.")
+            }
             if (_currentPageObject.pageId == "p5" && typeof (currentCompQuestionIndex) != 'undefined' && currentCompQuestionIndex > 0) {
                 currentCompQuestionIndex = currentCompQuestionIndex - 1
                 //$("#Questioninfo").show();
                 _Computer.showComputerQuestion()
             }
-            else if (_currentPageObject.pageId == "p7" && typeof (currentQuestionIndex) != 'undefined' && currentQuestionIndex > 0) {
+            else if (_currentPageObject.pageId == quizpageid && typeof (currentQuestionIndex) != 'undefined' && currentQuestionIndex > 0) {
                 $("#ReviewIns").hide();
                 $(".intro-content-question").show();
                 $("#Questioninfo").show();
                 currentQuestionIndex = currentQuestionIndex - 1;
                 $("#Summary").empty();
                 $("#Summary").hide();
-                showQuestion();
+                _Assessment.ShowQuestion();
             }
             else {
                 this.LoadPage(_currentPageObject.prevPageId);
