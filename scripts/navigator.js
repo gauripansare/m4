@@ -185,11 +185,7 @@ var _Navigator = (function () {
                             $("#progressdiv").focus();
                         }
                         
-                        $("#hintdiv").show();
-                        if (_currentPageObject.hideHint != undefined && _currentPageObject.hideHint) {
-                            $("#hintdiv").hide();
-                           
-                        }
+                        
                         if (presentermode) {
                             _ModuleCommon.PresenterMode();
                         }
@@ -319,7 +315,7 @@ var _Navigator = (function () {
         UpdateProgressBar: function () {
             var progData = this.GetProgressData();
             var lprog_pecent = (progData * 100 / progressLevels[0]).toFixed(0);
-            $(".progressDiv").text("Progress: " + lprog_pecent + "%");
+            $(".progressdiv").text("Progress: " + lprog_pecent + "%");
             $(".progressFg").css("width", lprog_pecent + "%");
 
 
@@ -388,9 +384,7 @@ var _Navigator = (function () {
                 return false;
             }
         },
-      SetVideoStatus: function(){
-            _NData[_currentPageId].played = true;
-        },
+     
         SetBookmarkData: function () {
             var bookmarkdata;
             if(this.IsScorm())

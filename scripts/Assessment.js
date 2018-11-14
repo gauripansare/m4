@@ -247,7 +247,8 @@ var _Assessment = (function () {
 				$("#Summary").find("input[type='radio']").prop("readonly", "readonly");
 				$("#Summary").find("input[type='radio']").k_disable();
 				if (isIE11version) {
-					$("#Summary").find("input[type='radio']").removeAttr("aria-disabled");
+				//	$("#Summary").find("input[type='radio']").removeAttr("aria-disabled");
+					
 				}
 
 			}

@@ -143,10 +143,11 @@ var _Computer = (function () {
 			}
 			if (currentCompQuestionIndex == 11) {
 				$(".questionoptions").css({ "margin-top": "-10px" });
-				$(".questiontext").css({ "margin-top": "-20px" })
+				$(".questiontext").css({ "margin-top": "-10px" })
 				if (navigator.userAgent.toLowerCase().indexOf('safari')) {
 					$(".questionoptions").css({ "height": "255px", "overflow-y": "auto" });
 				}
+				$(".addtocart").css({"margin-top":"-10px"})
 			}
 			else {
 				$(".questionoptions").css({ "margin-top": "unset" });
@@ -154,6 +155,7 @@ var _Computer = (function () {
 				if (navigator.userAgent.toLowerCase().indexOf('safari')) {
 					$(".questionoptions").css({ "height": "unset", "overflow-y": "unset" });
 				}
+				$(".addtocart").css({"margin-top":"20px"})
 			}
 			this.UpdateCart();
 			if (currQuestion.UserSelectedOptionId != undefined && currQuestion.UserSelectedOptionId != "") {
@@ -266,10 +268,11 @@ var _Computer = (function () {
 					if (iOS) {
 						$("#div_feedback p:first").attr("role", "text")
 					}
-					$('html,body').animate({ scrollTop: document.body.scrollHeight }, 1000, function () {
+					//$('html,body').animate({ scrollTop: document.body.scrollHeight }, 1000, function () {
+						window.scrollTo(0,document.body.scrollHeight)
 						$("#div_feedback p:first").attr("tabindex", "-1")
 						$("#div_feedback p:first").focus();
-					});
+					//});
 				}
 			}
 			else {
