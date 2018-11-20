@@ -58,19 +58,19 @@ var _Assessment = (function () {
 		},
 		ShowQuestion: function () {
 			//addCSS("styles/questionPlaceholder.css");
-			$(".question-band").empty();			
+			$(".question-band").empty();
 			$(".intro-content-question").hide();
 			currQustion = gRecordData.Questions[currentQuestionIndex]
 			if (gRecordData.Status == "NotStarted") {
 				gRecordData.Status = "Started";
 			}
-			$("#QuetionText").html("<span style='font-size:0px'>Question Number </span>"+(currentQuestionIndex + 1) +") "+ currQustion.QuestionText)
+			$("#QuetionText").html("<span style='font-size:0px'>Question Number </span>" + (currentQuestionIndex + 1) + ") " + currQustion.QuestionText)
 			if (currQustion.UserSelectedOptionId == "") {
 				// randomize options
 				gRecordData.Questions[currentQuestionIndex].Options = this.Shuffle(currQustion.Options)
 			}
 			currQustion.Options = gRecordData.Questions[currentQuestionIndex].Options;
-		
+
 			for (var i = 0; i < currQustion.Options.length; i++) {
 				optionObj = $(".Option").clone();
 				optionObj.attr("id", "label" + currQustion.Options[i].OptionId)
@@ -83,24 +83,23 @@ var _Assessment = (function () {
 				$(".question-band").append(optionObj)
 
 				if (currQustion.UserSelectedOptionId == currQustion.Options[i].OptionId) {
-					$("#" + currQustion.Options[i].OptionId).trigger("click");				
+					$("#" + currQustion.Options[i].OptionId).trigger("click");
 					isFirstQAnswered = true
 				}
-				if (isIE11version || isIEEdge || isSafari ) {
+				if (isIE11version || isIEEdge || isSafari) {
 					optionObj.find("input").attr("aria-label", optionObj.find(".inpputtext").text());
 					optionObj.find(".inpputtext").attr("aria-hidden", "true")
 				}
 			}
 			$(".question-band .assessmentradio").unwrap();
 			$("#Questioninfo").text("Performance Check: Mini-Quiz: Question " + parseInt(currentQuestionIndex + 1) + " of 4")
-			
+
 			$(".intro-content-question").fadeIn(600)
 
 			$("#Questioninfo").focus();
 			if (gRecordData.Status != "Completed") {
 				$("#linknext").k_disable();
-				if(currentQuestionIndex != 0)
-				{
+				if (currentQuestionIndex != 0) {
 					$("#linkprevious").k_disable();
 				}
 			}
@@ -163,7 +162,7 @@ var _Assessment = (function () {
 				iscorrectimg.closest("span").show();
 
 			}
-			
+
 			$("input[type='radio']").prop("readonly", "readonly");
 			$("input[type='radio']").k_disable();
 
@@ -181,7 +180,7 @@ var _Assessment = (function () {
 				questionObj = $("#Question").clone();
 				currQustion = gRecordData.Questions[b]
 				questionObj.find(".quetiontext").html("<span style='font-size:0px'>Question Number </span><span>" + (b + 1) + ") &nbsp;</span>" + currQustion.QuestionText)
-				var radioname = "radio" +b + Math.random();
+				var radioname = "radio" + b + Math.random();
 
 				questionObj.find(".question-band").empty();
 
@@ -189,11 +188,11 @@ var _Assessment = (function () {
 				for (var i = 0; i < currQustion.Options.length; i++) {
 					optionObj = $(".Option").clone();
 					optionObj.find("input").attr("id", "question" + gRecordData.Questions[b].QuestionId + currQustion.Options[i].OptionId)
-					
+
 					optionObj.find(".inpputtext .ltext").html(currQustion.Options[i].OptionText)
 					optionObj.find(".inpputtext").attr("for", "question" + gRecordData.Questions[b].QuestionId + currQustion.Options[i].OptionId)
 					optionObj.removeClass("Option");
-					optionObj.find("input").attr("name",radioname)
+					optionObj.find("input").attr("name", radioname)
 					optionObj.show();
 					if (isIE11version || isIEEdge || isSafari) {
 						optionObj.find("input").attr("aria-label", optionObj.find(".inpputtext").text());
@@ -243,35 +242,36 @@ var _Assessment = (function () {
 				$("#Summary").append(questionObj);
 
 				questionObj.find(".question-band label").css("position", "relative");
-				
+
 				$("#Summary").find("input[type='radio']").prop("readonly", "readonly");
 				$("#Summary").find("input[type='radio']").k_disable();
 				if (isIE11version) {
-				//	$("#Summary").find("input[type='radio']").removeAttr("aria-disabled");
-					
+					//	$("#Summary").find("input[type='radio']").removeAttr("aria-disabled");
+
 				}
 
 			}
-			
+
 			//$("#Summary input[type='radio']").each(function(){$(this).unwrap()});
 			if (isIE11version) {
 				this.SetCustomarialabelforRadio();
 
-		     }
+			}
+			if (gRecordData.Score == undefined || gRecordData.Score == "") {
+				gRecordData.Score = score;
+			}
+			var perscore = score / parseInt(gRecordData.AssessmentScore) * 100;
+			$("#ScoreSummary").text("Score: " + perscore + "%");
 			if (gRecordData.Status == "Started") {
 				gRecordData.Status = "Completed";
-				gRecordData.Score = score;
-				var perscore = gRecordData.Score / parseInt(gRecordData.AssessmentScore) * 100;	
-				$("#ScoreSummary").text("Score: " + perscore + "%");
 				this.SetScore(perscore);
 			}
-			if(_Navigator.IsPresenterMode())
-			{
+			if (_Navigator.IsPresenterMode()) {
 				$("#ScoreSummary").text("Score: 100%");
 				gRecordData.Status = "Completed";
-				
+
 			}
-			
+
 			_Navigator.UpdateProgressBar();
 			$("#progressdiv").focus();
 		},
@@ -282,7 +282,7 @@ var _Assessment = (function () {
 			}
 		},
 		SetCustomarialabelforRadio: function () {
-			
+
 			$(".question-band input[type='radio']").each(function () {
 				var ischecked = "\n radio button unavailable"
 				if ($(this).prop("checked") == "true" || $(this).prop("checked") == true) {
@@ -299,11 +299,11 @@ var _Assessment = (function () {
 					radioalabel = $(this).next(".inpputtext").text();
 				}
 				radioalabel = ischecked + radioalabel;
-				radioalabel = "<label class='accessibility'>"+radioalabel+"</label>";
+				radioalabel = "<label class='accessibility'>" + radioalabel + "</label>";
 				$(this).prev(".iscorrect").before(radioalabel);
 				$(this).attr("aria-hidden", "true");
 				$(this).next().attr("aria-hidden", "true");
-				$(this).attr("disabled","true")
+				$(this).attr("disabled", "true")
 
 			})
 		},
@@ -324,15 +324,14 @@ var _Assessment = (function () {
 		},
 		Setbookmarkdata: function (assessmentobj) {
 			currentQuestionIndex = assessmentobj.currentQuestionIndex;
-			gRecordData.Status = assessmentobj.status ;
-			gRecordData.Score = assessmentobj.score ;
+			gRecordData.Status = assessmentobj.status;
+			gRecordData.Score = assessmentobj.score;
 			if (assessmentobj.Qdata != undefined && assessmentobj.Qdata.length > 0) {
 				for (var i = 0; i < gRecordData.Questions.length; i++) {
-					for(j=0;j<assessmentobj.Qdata.length;j++)
-					{
+					for (j = 0; j < assessmentobj.Qdata.length; j++) {
 						if (assessmentobj.Qdata[j].qid == gRecordData.Questions[i].QuestionId) {
 							gRecordData.Questions[i].UserSelectedOptionId = assessmentobj.Qdata[j].optionid;
-							gRecordData.Questions[i].IsAnswered = true;							
+							gRecordData.Questions[i].IsAnswered = true;
 						}
 					}
 				}
