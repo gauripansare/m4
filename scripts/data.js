@@ -35,7 +35,7 @@ var _PData = {
                     feedbackurl: "feedbackp4-1.htm",
                     price: 419,
                     name: "OptiBook 1300A",
-                    accessText:"OptiBook 1300A price 419"
+                    accessText:"OptiBook 1300A price $419"
                 },
                 {
                     HotspotId: 2,
@@ -51,7 +51,7 @@ var _PData = {
                     price: 529,
                     name: "OptiPro 2600",
                     isCorrect: false,
-                    accessText:"OptiPro 2600 price 529"
+                    accessText:"OptiPro 2600 price $529"
                 },
                 {
                     HotspotId: 3,
@@ -66,7 +66,7 @@ var _PData = {
                     feedbackurl: "feedbackp4-3.htm",
                     price: 439,
                     name: "OptiBook 1450C",
-                    accessText:"OptiBook 1450C price 439"
+                    accessText:"OptiBook 1450C price $439"
                 },
                 {
                     HotspotId: 4,
@@ -82,7 +82,7 @@ var _PData = {
                     price: 549,
                     name: "OptiPro 2750",
                     isCorrect: false,
-                    accessText:"OptiPro 2750 price 549"
+                    accessText:"OptiPro 2750 price $549"
                 }
             ]
         }

@@ -123,7 +123,7 @@ $(document).on('click', ".activityimg", function (event) {
 $(document).on('click', ".startbtn", function (event) {
     if ($(this).k_IsDisabled()) return;
     _Navigator.Next();
-    //_Navigator.LoadPage("p7")
+    //_Navigator.LoadPage("p5")
 });
 $(document).on('click', ".reviewsubmit", function (event) {
     if ($(this).k_IsDisabled()) return;
@@ -233,7 +233,7 @@ $(document).on("click", ".addtocart", function (event) {
     }
     gComputerData.Questions[currentCompQuestionIndex].IsAnswered = true;
     _Computer.UpdateCart(true);
-
+    _Navigator.GetBookmarkData();
     _ModuleCommon.EnableNext()
 
 });
@@ -248,6 +248,7 @@ $(document).on("click", ".changecomputer", function (event) {
 })
 $(document).on("click", ".beginbuild", function (event) {
     _Navigator.SetPageStatus(true);
+    _Navigator.GetBookmarkData();
     _Navigator.Next();
 
 });
@@ -260,9 +261,39 @@ $(document).on("click", ".questiontab", function () {
     _Computer.showComputerQuestion();
 
 });
+$(document).on("keyup", ".questiontab", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    if ($(this).attr("disabled") || $(this).hasClass("disabled")) {
+        event.preventDefault();
+        return;
+    }
+    if (window.event) {
+        key = window.event.keyCode;
+    } else if (event) {
+        key = event.keyCode;
+    }
+    if (key == 13) {
+       $(this).trigger("click")
+    }
+});
 $(document).on("click", ".tooltipicon", function (event) {
     MCQTooltip.ShowInfo($(this));
 
+});
+$(document).on("keyup", ".tooltipicon", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    if ($(this).attr("disabled") || $(this).hasClass("disabled")) {
+        event.preventDefault();
+        return;
+    }
+    if (window.event) {
+        key = window.event.keyCode;
+    } else if (event) {
+        key = event.keyCode;
+    }
+    if (key == 13) {
+       $(this).trigger("click")
+    }
 });
 $(document).on("click", ".buildcomputer", function (event) {
     if ($(this).hasClass("disabled"))
@@ -271,6 +302,21 @@ $(document).on("click", ".buildcomputer", function (event) {
     currentCompQuestionIndex = 12;
     _Navigator.LoadPage("p6");
 
+});
+$(document).on("keyup", ".buildcomputer", function (event) {
+    if ($(this).k_IsDisabled()) return;
+    if ($(this).attr("disabled") || $(this).hasClass("disabled")) {
+        event.preventDefault();
+        return;
+    }
+    if (window.event) {
+        key = window.event.keyCode;
+    } else if (event) {
+        key = event.keyCode;
+    }
+    if (key == 13) {
+       $(this).trigger("click")
+    }
 });
 $(document).on("click", "#radioCheckedUnchecked", function (event) {
     $(this).next("input").next(".inpputtext").trigger("click");
@@ -314,3 +360,11 @@ window.addEventListener("scroll", function () {
     
 }, false);
 
+$(document).on("focus", ".infodiv p", function (event) {
+      var index = $(this).index(".infodiv p");
+      var next = $(".infodiv p").get((index + 1))
+      if (next == undefined) {
+          $(".navtipopen").focus();
+
+      }
+});

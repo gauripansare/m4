@@ -1,4 +1,13 @@
-﻿var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+﻿var userAgentCustom = window.navigator.userAgent;
+var ua = navigator.userAgent.toLowerCase();
+var isAndroid = ua.indexOf("android") > -1;
+var isIE11version = !!navigator.userAgent.match(/Trident.*rv\:11\./);
+var isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+var CurClientWidth = window.innerWidth;
+var Macbrowser = navigator.userAgent.indexOf('Chrome');
+var Macos = navigator.userAgent.indexOf('Mac');
+var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 var ipad = !!navigator.platform && /iPad|iPod/.test(navigator.platform);
 var isiPhone = !!navigator.platform && /iPhone/.test(navigator.platform);
 var isIE11version = !!navigator.userAgent.match(/Trident.*rv\:11\./);
@@ -6,6 +15,8 @@ var isSafari = navigator.userAgent.toLowerCase().indexOf('safari/') > -1;
 var isIEEdge = /Edge/.test(navigator.userAgent);
 var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
 var isFirefox = /Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent);
+var isIpad = userAgentCustom.match(/iPad/i)
+var isIphone = navigator.userAgent.indexOf('iPhone') > -1
 var delay = 1000;
 if (iOS) {
     delay = 3000;
@@ -17,6 +28,8 @@ jQuery.fn.extend({
     k_disable: function () {
         this.addClass('disabled').attr("aria-disabled", "true").attr("disabled", "disabled");
         if (isIE11version) {
+            if ($(this).attr("type") != undefined && $(this).attr("type") == "radio")
+                return;
             $(this).removeAttr("disabled")
         }
         return;

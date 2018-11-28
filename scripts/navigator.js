@@ -6,7 +6,8 @@ var _Navigator = (function () {
     var _currentPageObject = {};
     var progressLevels = [22];
     var totalsimscore = 18;
-    var presentermode = false;
+    //var presentermode = false;
+    var bookmarkpageid = "";
     var quizpageid = "p7";
     var _NData = {
         "p1": {
@@ -103,6 +104,7 @@ var _Navigator = (function () {
         },
         LoadPage: function (pageId, jsonObj) {
              $(".hintcontainer").hide()
+             $(".header-content-dock").css({"visibility":"hidden"});
             if (_Navigator.IsRevel() && _currentPageId !=undefined && _currentPageId !="") {
                LifeCycleEvents.OnUnloadFromPlayer()
             }
@@ -181,43 +183,35 @@ var _Navigator = (function () {
                         if (_currentPageId == "p2") {
                             $("#titleheader").focus();
                         }
-                        else {
-                            $("#progressdiv").focus();
+                        else if ((isiPhone || isAndroid) && _NData[_currentPageId].isLoaded != undefined && _NData[_currentPageId].isLoaded == true) {//iphone android on previous focus is set to header
+                            $("h2").focus();
                         }
-                        
-                        
-                        if (presentermode) {
+                        else {
+                            //$(".header-informarion .hintlink").focus();
+                            //$("h2").focus();
+                            if (isChrome && !isAndroid) {
+                                $("h2").focus();
+                            }
+                            else {
+                               
+                                $("#progressdiv").focus();
+                          
+                            }
+                            // setReader("progressdiv");
+
+                        }
+                        if (_Navigator.IsPresenterMode()) {
                             _ModuleCommon.PresenterMode();
                         }
-                        if (_currentPageObject.hinturl != undefined) {
-                            $(".hintlink").k_enable();
-                            $(".hintcontent").load("pagedata/hintdata/" + _currentPageObject.hinturl, function () { });
-                        }
-                        else {
-                            $(".hintlink").k_disable();
-                           
-                        }
+                       
                         _NData[_currentPageObject.pageId].isLoaded = true;
                         //$("h2.pageheading").focus();
                     });
                 })
             }
+             _Navigator.GetBookmarkData();
         },
-        LoadDefaultQuestion: function () {
-            if (_currentPageObject.questions.length > 0) {
-                _questionId = 0;
-                _currentPageObject.questions[0].isQuestionVisit = true;
-                for (var i = 0; i < _currentPageObject.questions.length; i++) {
-                    if (_currentPageObject.questions[i].isCurrent) {
-                        _questionId = i;
-                    }
-                }
-                //second parameter is to disable question effect.
-                _Question.Load(_currentPageObject.questions[_questionId], {
-                    disableEffect: true
-                });
-            }
-        },
+       
         Prev: function () {
              if (_Navigator.IsRevel()) {
                 LifeCycleEvents.OnInteraction("Previous link click.")
@@ -403,6 +397,7 @@ var _Navigator = (function () {
                 progressLevels = bookmarkdata.ProgressLevels;
                 _ModuleCommon.SetReviewData(bookmarkdata.ReviewData)
                 _Assessment.Setbookmarkdata(bookmarkdata.AssessmentData)
+                _Computer.Setbookmarkdata(bookmarkdata.ComputerData)
             }
         },
         GetBookmarkData: function () {
@@ -414,6 +409,7 @@ var _Navigator = (function () {
             bookmarkobj.ProgressLevels = progressLevels;
             bookmarkobj.ReviewData = _ModuleCommon.GetReviewData();
             bookmarkobj.AssessmentData = _Assessment.Getbookmarkdata();
+            bookmarkobj.ComputerData = _Computer.Getbookmarkdata();
             if (this.IsRevel()) {
                 if (k_Revel.get_LaunchData().mode == LaunchModes.do) {
                     var suspend_data = JSON.stringify(bookmarkobj);
@@ -520,6 +516,9 @@ var _Navigator = (function () {
         GetPackageType: function () {
             return packageType;
         },
+        GetQuizPageId:function(){
+            return quizpageid;
+        }
     };
 })();
 

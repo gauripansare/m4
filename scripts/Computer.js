@@ -40,6 +40,7 @@ var _Computer = (function () {
 			if (gComputerData.Status == "NotStarted") {
 				gComputerData.Status = "Started";
 			}
+			$(".questionheading").empty();
 			$(".questionheading").html(currQuestion.QuestionHeading)
 			$(".questioninstruction").html(currQuestion.InstructionText)
 			$(".questiontext").html(currQuestion.QuestionText)
@@ -55,6 +56,8 @@ var _Computer = (function () {
 
 			$("#linkprevious").k_enable();
 			$("#linknext").k_disable();
+			_Navigator.GetBookmarkData();
+
 			if (currQuestion.type == "button") {
 
 				$(".buildcomputer").show();
@@ -69,14 +72,26 @@ var _Computer = (function () {
 				if (gComputerData.AllAnswered == true && gComputerData.Status != "Completed" && currentCompQuestionIndex == gComputerData.Questions.length - 1) {
 					$("#linknext").k_disable();
 				}
-				if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed") {
-					$(".computerwrapper input[type='button']").hide();
-				}
+				
 				if (navigator.userAgent.toLowerCase().indexOf('safari')) {
 					$(".questionoptions").css({ "height": "unset", "overflow-y": "unset" });
 				}
+				if (isIE11version) {
+					$(".addtocart").css({ "margin-top": "auto" })
+					$(".questionoptions").css({ "margin-top": "0px" });
+					$(".questiontext").css({ "margin-top": "0px" })
+					$(".questionoptions").css({ "height": "auto", "overflow-y": "auto" });
+				}
+				else {
+					$(".addtocart").css({ "margin-top": "20px" })
+				}
+				
 				this.UpdateCart();
+				if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed") {
+					$(".computerwrapper input[type='button']").hide();
+				}
 				$("#progressdiv").focus();
+				
 				return;
 			}
 			else {
@@ -135,8 +150,8 @@ var _Computer = (function () {
 
 						$("#linknext").k_enable();
 
-					}				
-					
+					}
+
 				}
 				$(".addtocart").show();
 
@@ -147,15 +162,24 @@ var _Computer = (function () {
 				if (navigator.userAgent.toLowerCase().indexOf('safari')) {
 					$(".questionoptions").css({ "height": "255px", "overflow-y": "auto" });
 				}
-				$(".addtocart").css({"margin-top":"-10px"})
+				$(".addtocart").css({ "margin-top": "-10px" })
 			}
 			else {
-				$(".questionoptions").css({ "margin-top": "unset" });
-				$(".questiontext").css({ "margin-top": "unset" })
+
 				if (navigator.userAgent.toLowerCase().indexOf('safari')) {
 					$(".questionoptions").css({ "height": "unset", "overflow-y": "unset" });
 				}
-				$(".addtocart").css({"margin-top":"20px"})
+				if (isIE11version) {
+					$(".addtocart").css({ "margin-top": "20px" })
+					$(".questionoptions").css({ "margin-top": "0px" });
+					$(".questiontext").css({ "margin-top": "0px" })
+					$(".questionoptions").css({ "height": "auto", "overflow-y": "auto" });
+				}
+				else {
+					$(".addtocart").css({ "margin-top": "20px" })
+					$(".questionoptions").css({ "margin-top": "unset" });
+					$(".questiontext").css({ "margin-top": "unset" })
+				}
 			}
 			this.UpdateCart();
 			if (currQuestion.UserSelectedOptionId != undefined && currQuestion.UserSelectedOptionId != "") {
@@ -185,9 +209,9 @@ var _Computer = (function () {
 
 			$(".cartitem").empty();
 			if ($(".cartcomputername").length == 0) {
-				$(".cartitem").before("<p class='cartcomputername'>" + gComputerData.baseunitname + "</p>")
+				$(".cartitem").before("<p class='cartcomputername' >" + gComputerData.baseunitname + "</p>")
 			}
-			$(".cartitem").append("<p class='cartcartprice'><span class='cartopttext font14'><b>Starting price</b></span><span class='cartoptprice font14'>$" + gComputerData.baseunitprice + "</span></p>")
+			$(".cartitem").append("<p class='cartcartprice' ><span class='cartopttext font14'><b>Starting price</b></span><span class='cartoptprice font14'>$" + gComputerData.baseunitprice + "</span></p>")
 			var ccost = parseInt(gComputerData.baseunitprice);
 			for (var i = 0; i < gComputerData.Questions.length; i++) {
 				var currQuestion = gComputerData.Questions[i];
@@ -244,7 +268,7 @@ var _Computer = (function () {
 				$(".questiontab[questionid='" + currentCompQuestionIndex + "']").addClass("questiontabselected")
 
 			}
-			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered) {
+			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered && gComputerData.Status !="Completed") {
 				$(".buildcomputer").show();
 				if (gComputerData.CartCost > gComputerData.Budget) {
 					$(".buildcomputer").k_disable();
@@ -269,9 +293,9 @@ var _Computer = (function () {
 						$("#div_feedback p:first").attr("role", "text")
 					}
 					//$('html,body').animate({ scrollTop: document.body.scrollHeight }, 1000, function () {
-						window.scrollTo(0,document.body.scrollHeight)
-						$("#div_feedback p:first").attr("tabindex", "-1")
-						$("#div_feedback p:first").focus();
+					window.scrollTo(0, document.body.scrollHeight)
+					$("#div_feedback p:first").attr("tabindex", "-1")
+					$("#div_feedback p:first").focus();
 					//});
 				}
 			}
@@ -339,6 +363,44 @@ var _Computer = (function () {
 			}
 
 
+		},
+		Getbookmarkdata: function () {
+			var computerobj = {};
+			computerobj.currentCompQuestionIndex = currentCompQuestionIndex;
+			computerobj.status = gComputerData.Status;
+			computerobj.score = gComputerData.Score;
+			computerobj.baseunitprice = gComputerData.baseunitprice;
+			computerobj.baseunitname = gComputerData.baseunitname;
+			computerobj.CartCost = gComputerData.CartCost;
+			computerobj.AllAnswered = gComputerData.AllAnswered;
+			var qdata = [];
+			for (var i = 0; i < gComputerData.Questions.length; i++) {
+				if (gComputerData.Questions[i].IsAnswered) {
+					var obj = { qid: gComputerData.Questions[i].QuestionId, optionid: gComputerData.Questions[i].UserSelectedOptionId }
+					qdata.push(obj)
+				}
+			}
+			computerobj.Qdata = qdata;
+			return computerobj;
+		},
+		Setbookmarkdata: function (computerobj) {
+			currentCompQuestionIndex = computerobj.currentCompQuestionIndex;
+			gComputerData.Status = computerobj.status;
+			gComputerData.Score = computerobj.score;
+			gComputerData.baseunitprice = computerobj.baseunitprice;
+			gComputerData.baseunitname = computerobj.baseunitname;
+			gComputerData.CartCost = computerobj.CartCost;
+			gComputerData.AllAnswered = computerobj.AllAnswered;
+			if (computerobj.Qdata != undefined && computerobj.Qdata.length > 0) {
+				for (var i = 0; i < gComputerData.Questions.length; i++) {
+					for (j = 0; j < computerobj.Qdata.length; j++) {
+						if (computerobj.Qdata[j].qid == gComputerData.Questions[i].QuestionId) {
+							gComputerData.Questions[i].UserSelectedOptionId = computerobj.Qdata[j].optionid;
+							gComputerData.Questions[i].IsAnswered = true;
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -362,7 +424,7 @@ var MCQTooltip = MCQTooltip || function () {
 			_container = $(".computerwrapper");
 			if (_container.find(".tooltiptext").length > 0 && _element.attr("tooltipid") == $(".navtipopen").attr("tooltipid")) {
 				this.Clear();
-				
+
 				$("h2.pageheading").focus();
 			}
 			else {
