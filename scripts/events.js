@@ -240,7 +240,7 @@ $(document).on("click", ".addtocart", function (event) {
 $(document).on("click", ".changecomputer", function (event) {
     $("#div_feedback .div_fdkcontent").html("");
     $("#div_feedback").hide();
-    $('html,body').animate({ scrollTop: document.body.scrollHeigh }, 500, function () {
+    $('html,body').animate({ scrollTop: document.body.scrollHeight }, 500, function () {
         $("h2.pageheading").focus();
      });
     $(".divHotSpot").k_enable();

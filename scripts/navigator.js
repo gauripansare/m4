@@ -79,9 +79,7 @@ var _Navigator = (function () {
 
     function OnPageLoad() {
 
-        $(".hintcontainer").hide()
-        $(".hintlink").removeClass("expanded");
-        $(".hintlink").attr("aria-expanded", "false")
+
         $("#header-title h1").show()
         $("#header-title").removeClass("startpage");
         if (_currentPageObject.isStartPage != undefined && _currentPageObject.isStartPage) {
@@ -103,16 +101,16 @@ var _Navigator = (function () {
             }
         },
         LoadPage: function (pageId, jsonObj) {
-             $(".hintcontainer").hide()
-             $(".header-content-dock").css({"visibility":"hidden"});
-            if (_Navigator.IsRevel() && _currentPageId !=undefined && _currentPageId !="") {
-               LifeCycleEvents.OnUnloadFromPlayer()
+            $(".hintcontainer").hide()
+            $(".header-content-dock").css({ "visibility": "hidden" });
+            if (_Navigator.IsRevel() && _currentPageId != undefined && _currentPageId != "") {
+                LifeCycleEvents.OnUnloadFromPlayer()
             }
             bookmarkpageid = pageId;
             if (jsonObj == undefined) {
                 jsonObj = {};
             }
-            _currentPageId = pageId;           
+            _currentPageId = pageId;
             _currentPageObject = _NData[_currentPageId]
             if (_currentPageObject.hasActivity == undefined || _currentPageObject.hasActivity == false) {
                 this.SetPageStatus(true)
@@ -155,65 +153,65 @@ var _Navigator = (function () {
             if (_currentPageObject.isStartPage) {
                 $(".main-content").load(pageUrl, function () {
                     OnPageLoad();
-                   $("#header1").focus()
+                    $("#header1").focus()
 
                 });
             } else {
                 $(".main-content").fadeTo(250, 0.25, function () {
                     $(".main-content").load(pageUrl, function () {
                         $(this).fadeTo(600, 1)
-
-                        OnPageLoad();
                         $(".hintcontainer").hide();
+                        
+                            OnPageLoad();
+                        
                         if (_currentPageId == "p5")//  change to assessment id
                         {
 
                             _Computer.showComputerQuestion();
                         }
-                        if (_currentPageId == "p6")//  change to assessment id
-                        {
+                        if (_currentPageId == "p6") {
                             _Computer.showReviewSummary();
                         }
                         if (_currentPageId == quizpageid)//  change to assessment id
                         {
                             _Assessment.ShowQuestion();
                         }
-                      
-
                         if (_currentPageId == "p2") {
                             $("#titleheader").focus();
                         }
+
                         else if ((isiPhone || isAndroid) && _NData[_currentPageId].isLoaded != undefined && _NData[_currentPageId].isLoaded == true) {//iphone android on previous focus is set to header
                             $("h2").focus();
                         }
                         else {
-                            //$(".header-informarion .hintlink").focus();
-                            //$("h2").focus();
-                            if (isChrome && !isAndroid) {
+                            if (_currentPageId == "p4" && isiPhone) {
+                                $("h2").focus();
+
+                            }
+                            else if (isChrome && !isAndroid) {
                                 $("h2").focus();
                             }
                             else {
-                               
-                                $("#progressdiv").focus();
-                          
-                            }
-                            // setReader("progressdiv");
 
+                                $("#progressdiv").focus();
+
+                            }
                         }
+
+
                         if (_Navigator.IsPresenterMode()) {
                             _ModuleCommon.PresenterMode();
                         }
-                       
                         _NData[_currentPageObject.pageId].isLoaded = true;
                         //$("h2.pageheading").focus();
                     });
                 })
             }
-             _Navigator.GetBookmarkData();
+            _Navigator.GetBookmarkData();
         },
-       
+
         Prev: function () {
-             if (_Navigator.IsRevel()) {
+            if (_Navigator.IsRevel()) {
                 LifeCycleEvents.OnInteraction("Previous link click.")
             }
             if (_currentPageObject.pageId == "p5" && typeof (currentCompQuestionIndex) != 'undefined' && currentCompQuestionIndex > 0) {
@@ -309,6 +307,7 @@ var _Navigator = (function () {
         UpdateProgressBar: function () {
             var progData = this.GetProgressData();
             var lprog_pecent = (progData * 100 / progressLevels[0]).toFixed(0);
+            $(".progressdiv").empty();
             $(".progressdiv").text("Progress: " + lprog_pecent + "%");
             $(".progressFg").css("width", lprog_pecent + "%");
 
@@ -371,25 +370,23 @@ var _Navigator = (function () {
             presentermode = val;
         },
         IsPresenterMode: function () {
-            if(packageType == "presenter"){
+            if (packageType == "presenter") {
                 return true;
             }
-            else{
+            else {
                 return false;
             }
         },
-     
+
         SetBookmarkData: function () {
             var bookmarkdata;
-            if(this.IsScorm())
-            {
+            if (this.IsScorm()) {
                 bookmarkdata = _ScormUtility.GetSuspendData();
             }
-            else if(this.IsRevel())
-            {
+            else if (this.IsRevel()) {
                 bookmarkdata = JSON.stringify(k_Revel.get_StateData())
             }
-            
+
             if (bookmarkdata != undefined && bookmarkdata != "") {
                 bookmarkdata = JSON.parse(bookmarkdata);
                 bookmarkpageid = bookmarkdata.BMPageId;
@@ -437,7 +434,7 @@ var _Navigator = (function () {
                 _NData[gVisistedPages[i]].isAnswered = true;
             }
         },
-       
+
         SetBookMarkPage: function () {
             if (this.IsScorm()) {
                 _ScormUtility.SetBookMark(bookmarkpageid);
@@ -487,13 +484,12 @@ var _Navigator = (function () {
                 }, 100);
 
             }
-            else
-            {
+            else {
                 _Navigator.Start();
             }
         },
         GotoBookmarkPage: function () {
-           
+
             if (bookmarkpageid != undefined && bookmarkpageid != "") {
                 _Navigator.LoadPage(bookmarkpageid)
             }
@@ -516,7 +512,7 @@ var _Navigator = (function () {
         GetPackageType: function () {
             return packageType;
         },
-        GetQuizPageId:function(){
+        GetQuizPageId: function () {
             return quizpageid;
         }
     };
