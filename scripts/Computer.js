@@ -34,6 +34,9 @@ var _Computer = (function () {
 
 			return array;
 		},
+		SetCurrentQuestionIndex: function(questionIndex){
+			currentCompQuestionIndex = questionIndex;
+		},
 		showComputerQuestion: function () {
 			MCQTooltip.Clear();
 			currQuestion = gComputerData.Questions[currentCompQuestionIndex]

@@ -812,7 +812,23 @@ var _ModuleCommon = (function () {
 
                 }
             });
-        }
+        },
+        AppendFooter: function () {
+            if ($(".presentationModeFooter").length == 0) {
+                var str = '<div class="presentationModeFooter">Presentation Mode</div>';
+                $("footer").append($(str));
+                $("footer").show();
+                $("#linknext").k_enable();
+            }
+        },
+        AppendScormReviewFooter: function () {
+            if ($(".ScormReviewFooter").length == 0) {
+                var str = '<div class="ScormReviewFooter"> Review Mode</div>';
+                $("footer").append($(str));
+                $("footer").show();
+                $("#linknext").k_enable();
+            }
+        },
     }
 })();
 

@@ -571,6 +571,15 @@
 width: 5px;
 }
 
+.presentationModeFooter, .ScormReviewFooter {
+    display: inline-block;
+    background-color: #1a76cb;
+    height: 29px;
+    width: 100%;
+        color: white;
+    text-align: center;
+}
+
 /* Track */
 .reviewSummaryTable::-webkit-scrollbar-track {
 background: #f1f1f1; 
