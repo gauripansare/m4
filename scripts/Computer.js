@@ -34,7 +34,7 @@ var _Computer = (function () {
 
 			return array;
 		},
-		SetCurrentQuestionIndex: function(questionIndex){
+		SetCurrentQuestionIndex: function (questionIndex) {
 			currentCompQuestionIndex = questionIndex;
 		},
 		showComputerQuestion: function () {
@@ -75,7 +75,7 @@ var _Computer = (function () {
 				if (gComputerData.AllAnswered == true && gComputerData.Status != "Completed" && currentCompQuestionIndex == gComputerData.Questions.length - 1) {
 					$("#linknext").k_disable();
 				}
-				
+
 				if (navigator.userAgent.toLowerCase().indexOf('safari')) {
 					$(".questionoptions").css({ "height": "unset", "overflow-y": "unset" });
 				}
@@ -88,13 +88,16 @@ var _Computer = (function () {
 				else {
 					$(".addtocart").css({ "margin-top": "20px" })
 				}
-				
+
 				this.UpdateCart();
 				if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed") {
 					$(".computerwrapper input[type='button']").hide();
 				}
+				if (_Navigator.IsPresenterMode()) {
+					this.showQuestionPresenterMode();
+				}
 				$("#progressdiv").focus();
-				
+
 				return;
 			}
 			else {
@@ -184,6 +187,9 @@ var _Computer = (function () {
 					$(".questiontext").css({ "margin-top": "unset" })
 				}
 			}
+			if (_Navigator.IsPresenterMode()) {
+				this.showQuestionPresenterMode();
+			}
 			this.UpdateCart();
 			if (currQuestion.UserSelectedOptionId != undefined && currQuestion.UserSelectedOptionId != "") {
 				$(".addtocart").attr("value", "Update cart");
@@ -196,9 +202,7 @@ var _Computer = (function () {
 			}
 
 
-			if (_Navigator.IsPresenterMode()) {
-				//showQuestionPresenterMode();
-			}
+
 			if (gComputerData.Status == "Completed") {
 				$(".computerwrapper input").k_disable();
 			}
@@ -271,7 +275,7 @@ var _Computer = (function () {
 				$(".questiontab[questionid='" + currentCompQuestionIndex + "']").addClass("questiontabselected")
 
 			}
-			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered && gComputerData.Status !="Completed") {
+			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered && gComputerData.Status != "Completed") {
 				$(".buildcomputer").show();
 				if (gComputerData.CartCost > gComputerData.Budget) {
 					$(".buildcomputer").k_disable();
@@ -308,17 +312,44 @@ var _Computer = (function () {
 
 		},
 		showQuestionPresenterMode: function () {
-			var currQuestion = gComputerData.Questions[currentQuestionIndex];
-			var correctoption = currQuestion.Options.filter(function (item) {
-				return item.IsCorrect;
-			})[0];
-			$("#" + correctoption.OptionId).prop("checked", "true");
+			var currQuestion = gComputerData.Questions[currentCompQuestionIndex];
+			if (currQuestion.type== undefined || currQuestion.type !="button") {
+				var correctoption = currQuestion.Options.filter(function (item) {
+					return item.iscorrect;
+				});
+				for (var i = 0; i < correctoption.length; i++) {
+					$("#" + correctoption[i].OptionId).prop("checked", "true");
+					if (currQuestion.type != undefined && currQuestion.type == "checkbox") {
+						$("#" + correctoption[i].OptionId).prev("img").attr("src", "assets/images/checkbox-sel-v1.png")
+					}
+					else {
+						$("#" + correctoption[i].OptionId).prev("img").attr("src", "assets/images/radiobtnsel-v2.png")
+					}
+
+					$("#" + correctoption[i].OptionId).next(".inpputtext").css("font-weight", "bold");
+				}
+
+				if (gComputerData.Questions[currentCompQuestionIndex].type == "checkbox") {
+					gComputerData.Questions[currentCompQuestionIndex].UserSelectedOptionId = $("input[type='checkbox']:checked").map(function () {
+						return $(this).attr("id");
+					}).get();
+				}
+				else {
+					gComputerData.Questions[currentCompQuestionIndex].UserSelectedOptionId = $("input[type='radio']:checked").attr("id");
+
+				}
+				gComputerData.Questions[currentCompQuestionIndex].IsAnswered = true;
+				this.UpdateCart();
+			}
+			else
+			{
+				gComputerData.Questions[currentCompQuestionIndex].IsAnswered = true;
+			}
+		
 			$("input[type='radio']").k_disable();
-			var iscorrectimg = $("#" + correctoption.OptionId).closest("label").find(".iscorrect").find("img")
-			$("#" + correctoption.OptionId).closest("label").css("position", "relative");
-			iscorrectimg.attr("src", "assets/images/tick-icon-correct-1.png")
-			iscorrectimg.closest("span").show();
-			iscorrectimg.attr("aria-label", "Correct option selected");
+			$("input[type='checkbox']").k_disable();
+			$("input[type='button']").hide();
+			
 			$("#linknext").k_enable();
 		},
 		showReviewSummary: function () {

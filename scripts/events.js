@@ -360,11 +360,11 @@ window.addEventListener("scroll", function () {
     
 }, false);
 
-$(document).on("focus", ".infodiv p", function (event) {
+$(document).on("blur", ".infodiv p", function (event) {
       var index = $(this).index(".infodiv p");
       var next = $(".infodiv p").get((index + 1))
-      if (next == undefined) {
+      if (next == undefined) {          
           $(".navtipopen").focus();
-
       }
 });
+

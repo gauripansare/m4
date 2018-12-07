@@ -387,49 +387,12 @@ var _ModuleCommon = (function () {
                 this.DisplayInstructorReviewMode();
             }
         },
-        LoadCountDown: function () {
-            $("#counterdiv").attr("aria-hidden", "true");
-            if (myCounter != undefined) {
-                myCounter.end();
-                instance.stop();
-                myCounter = null;
-            }
-            myCounter = $.knowdlCountDown({
-                seconds: 30,  // number of seconds to count down
-                onUpdateStatus: function (sec) {
-                    $("#counterdiv").css({ "text-align": "right", "font-size": "26px", "font-family": "comic sans ms", "color": "#f4f8fc" });
-                    var lsec = "";
-                    if ((sec + "").length > 1) {
-                        lsec = "00:" + sec;
-                    }
-                    else {
-                        lsec = "00:0" + sec;
-                    }
-                    $("#counterdiv").html(lsec)
-                    $("#counterdiv").parent().attr("aria-label", "timer " + sec + " seconds");
-                },
-                onCounterEnd: function () {
-                    if ($("#counterdiv").text() == "00:00") {//$(".SimPageStepByStepBtn").trigger("click");         
-                        //ITSimModule.IncorrectPopup();
-                    }
-                }
-            });
-
-            myCounter.start();
-        },
         LoadHotSpot: function () {
 
             var currentPageData = _Navigator.GetCurrentPage();
             var pageData = _PData[currentPageData.pageId];
             //ATUL 
-            if (currentPageData.pageId == "p3") {
-                // if (_Navigator.IsAnswered()) {
-                $("#counterdiv").css("display", "none");
-                //}
-                //else {
-                // this.LoadCountDown();
-                //}
-            }
+           
             if (pageData != undefined) {
 
                 var hotspotdata = pageData.ImageHotSpots;
@@ -471,16 +434,17 @@ var _ModuleCommon = (function () {
             var pageData = this.GetPageDetailData();
 
 
-            if (currentPageData.pageId == "p3" && pageData.EmbedSettings != undefined) {
-                $("input[type='text']").addClass("greenspan");
-                $("input[type='text']").val(pageData.EmbedSettings.validatearray[0]);
-                $("input[type='text']").k_disable();
-
+            if (currentPageData.pageId == "p4") {
+               
+               $("#divHotspots2_3").addClass("hotspotclicked");
+               var _div = "<div class='reviewDiv Correct' style='z-index:5;width:39px;height:39px;position:absolute;left:0px;top:0px;'><img src='assets/images/review-correct.png' style='width:39px;height:35px;' /></div>";
+               $("#divHotspots2_3").append(_div)
+                gComputerData.baseunitname = "OptiBook 1450C";
+                gComputerData.baseunitprice = 439;
+                _Navigator.SetPageStatus(true);
+                _Navigator.UpdateProgressBar();
             }
-            $(".divHotSpot").addClass("hotspotclicked");
-            $(".divHotSpot").addClass("disabled");
-
-
+            $(".divHotSpot").k_disable();
             $("#linknext").k_enable();
         },
         ApplycontainerWidth: function () {
@@ -507,7 +471,7 @@ var _ModuleCommon = (function () {
 
         },
         OrientationChange: function () {
-
+            $(".header-content-dock").css({ "visibility": "hidden", "top": "-80px"})
             this.ApplycontainerWidth();
 
         },

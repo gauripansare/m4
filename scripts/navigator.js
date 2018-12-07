@@ -1,7 +1,7 @@
 ﻿//This api will contain navigation logic and page load.
 //It will also handle the question navigation if the page is having multiple questions.
 var _Navigator = (function () {
-    var packageType = "scorm";//presenter/scorm/revel
+    var packageType = "";//presenter/scorm/revel
     var isReviewMode = false;
     var _currentPageId = "";
     var _currentPageObject = {};
@@ -143,7 +143,9 @@ var _Navigator = (function () {
                     _Assessment.SetCurrentQuestionIndex(0)
                 }
                 if (this.IsPresenterMode())
+                {
                     _ModuleCommon.AppendFooter();
+                }
 
             }
             if (_currentPageObject.hasActivity != undefined && _currentPageObject.hasActivity && !this.IsAnswered()) {
@@ -178,7 +180,7 @@ var _Navigator = (function () {
                     $(".main-content").load(pageUrl, function () {
                         $(this).fadeTo(600, 1)
                         $(".hintcontainer").hide();
-                        
+                        $("h2").attr("tabindex","-1")
                             OnPageLoad();
                         
                         if (_currentPageId == "p5")//  change to assessment id
@@ -221,6 +223,9 @@ var _Navigator = (function () {
                         }
                         _NData[_currentPageObject.pageId].isLoaded = true;
                         //$("h2.pageheading").focus();
+                        if ((/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent))) {
+                            $('#footer-navigation').css('display', 'table');
+                        }
                     });
                 })
             }

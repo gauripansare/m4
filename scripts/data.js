@@ -66,7 +66,8 @@ var _PData = {
                     feedbackurl: "feedbackp4-3.htm",
                     price: 439,
                     name: "OptiBook 1450C",
-                    accessText:"OptiBook 1450C price $439"
+                    accessText:"OptiBook 1450C price $439",
+                   
                 },
                 {
                     HotspotId: 4,
