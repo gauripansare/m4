@@ -191,6 +191,7 @@ var _Computer = (function () {
 				this.showQuestionPresenterMode();
 			}
 			this.UpdateCart();
+
 			if (currQuestion.UserSelectedOptionId != undefined && currQuestion.UserSelectedOptionId != "") {
 				$(".addtocart").attr("value", "Update cart");
 				$(".addtocart").k_enable();
@@ -206,7 +207,7 @@ var _Computer = (function () {
 			if (gComputerData.Status == "Completed") {
 				$(".computerwrapper input").k_disable();
 			}
-			if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed") {
+			if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed" || _Navigator.IsPresenterMode()) {
 				$(".computerwrapper input[type='button']").hide();
 			}
 			this.ShowFeedback();
@@ -214,6 +215,9 @@ var _Computer = (function () {
 		},
 		UpdateCart: function (shiftfocus) {
 
+			if (gComputerData.Status == "Completed") {
+				return;
+			}
 			$(".cartitem").empty();
 			if ($(".cartcomputername").length == 0) {
 				$(".cartitem").before("<p class='cartcomputername' >" + gComputerData.baseunitname + "</p>")
@@ -235,13 +239,15 @@ var _Computer = (function () {
 						}
 					}
 					else {
-						var correctoption = currQuestion.Options.filter(function (item) {
-							return item.OptionId == currQuestion.UserSelectedOptionId;
-						})[0];
-						var opttext = correctoption.OptionText.split("[")[0];
-						var optprice = correctoption.cost;
-						ccost += correctoption.cost;
-						$(".cartitem").append("<p class='font14'><span class='cartopttext font14'>" + opttext + "</span><span class='cartoptprice font14'>$" + optprice + "</span></p>")
+						if (currQuestion.UserSelectedOptionId != undefined && currQuestion.UserSelectedOptionId != "") {
+							var correctoption = currQuestion.Options.filter(function (item) {
+								return item.OptionId == currQuestion.UserSelectedOptionId;
+							})[0];
+							var opttext = correctoption.OptionText.split("[")[0];
+							var optprice = correctoption.cost;
+							ccost += correctoption.cost;
+							$(".cartitem").append("<p class='font14'><span class='cartopttext font14'>" + opttext + "</span><span class='cartoptprice font14'>$" + optprice + "</span></p>")
+						}
 					}
 				}
 			}
@@ -275,7 +281,7 @@ var _Computer = (function () {
 				$(".questiontab[questionid='" + currentCompQuestionIndex + "']").addClass("questiontabselected")
 
 			}
-			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered && gComputerData.Status != "Completed") {
+			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered && gComputerData.Status != "Completed" && !_Navigator.IsPresenterMode()) {
 				$(".buildcomputer").show();
 				if (gComputerData.CartCost > gComputerData.Budget) {
 					$(".buildcomputer").k_disable();
@@ -288,7 +294,7 @@ var _Computer = (function () {
 			this.ShowFeedback(shiftfocus);
 		},
 		ShowFeedback: function (shiftfocus) {
-			if(_Navigator.IsPresenterMode()){
+			if (_Navigator.IsPresenterMode()) {
 				return;
 			}
 			shiftfocus = shiftfocus != undefined ? shiftfocus : false;
@@ -316,7 +322,7 @@ var _Computer = (function () {
 		},
 		showQuestionPresenterMode: function () {
 			var currQuestion = gComputerData.Questions[currentCompQuestionIndex];
-			if (currQuestion.type== undefined || currQuestion.type !="button") {
+			if (currQuestion.type == undefined || currQuestion.type != "button") {
 				var correctoption = currQuestion.Options.filter(function (item) {
 					return item.iscorrect;
 				});
@@ -342,17 +348,17 @@ var _Computer = (function () {
 
 				}
 				gComputerData.Questions[currentCompQuestionIndex].IsAnswered = true;
-				this.UpdateCart();
+				//this.UpdateCart();
 			}
-			else
-			{
-				gComputerData.Questions[currentCompQuestionIndex].IsAnswered = true;
+			else {
+				
+				//gComputerData.Questions[currentCompQuestionIndex].IsAnswered = true;
 			}
-		
+
 			$("input[type='radio']").k_disable();
 			$("input[type='checkbox']").k_disable();
 			$("input[type='button']").hide();
-			
+
 			$("#linknext").k_enable();
 		},
 		showReviewSummary: function () {

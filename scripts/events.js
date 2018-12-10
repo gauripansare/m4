@@ -220,7 +220,7 @@ $(document).on("click", ".assessmentSubmit", function (event) {
     _Navigator.Next();
 });
 $(document).on("click", ".addtocart", function (event) {
-    if ($(this).hasClass("disabled"))
+    if ($(this).hasClass("disabled")|| _Navigator.IsPresenterMode())
         return;
     if (gComputerData.Questions[currentCompQuestionIndex].type == "checkbox") {
         gComputerData.Questions[currentCompQuestionIndex].UserSelectedOptionId = $("input[type='checkbox']:checked").map(function () {
@@ -238,6 +238,8 @@ $(document).on("click", ".addtocart", function (event) {
 
 });
 $(document).on("click", ".changecomputer", function (event) {
+    if ($(this).hasClass("disabled") || _Navigator.IsPresenterMode())
+        return;
     $("#div_feedback .div_fdkcontent").html("");
     $("#div_feedback").hide();
     $('html,body').animate({ scrollTop: document.body.scrollHeight }, 500, function () {
@@ -296,7 +298,7 @@ $(document).on("keyup", ".tooltipicon", function (event) {
     }
 });
 $(document).on("click", ".buildcomputer", function (event) {
-    if ($(this).hasClass("disabled"))
+    if ($(this).hasClass("disabled")|| _Navigator.IsPresenterMode())
         return;
     gComputerData.Status = "Completed";
     currentCompQuestionIndex = 12;
