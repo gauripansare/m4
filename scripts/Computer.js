@@ -288,6 +288,9 @@ var _Computer = (function () {
 			this.ShowFeedback(shiftfocus);
 		},
 		ShowFeedback: function (shiftfocus) {
+			if(_Navigator.IsPresenterMode()){
+				return;
+			}
 			shiftfocus = shiftfocus != undefined ? shiftfocus : false;
 			currQuestion = gComputerData.Questions[currentCompQuestionIndex];
 
