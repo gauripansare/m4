@@ -214,8 +214,7 @@ var _Computer = (function () {
 			$("#progressdiv").focus();
 		},
 		UpdateCart: function (shiftfocus) {
-
-			if (gComputerData.Status == "Completed") {
+			if (gComputerData.Status == "Completed" && _Navigator.IsPresenterMode()) {
 				return;
 			}
 			$(".cartitem").empty();
