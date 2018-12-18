@@ -171,11 +171,18 @@ var _Navigator = (function () {
             if (_currentPageObject.isStartPage) {
                 $(".main-content").load(pageUrl, function () {
                     OnPageLoad();
-                    $("#header1").focus()
-
+                    //setReader("header1");
+                    $("#header1").focus();
+                    if (_Navigator.IsPresenterMode()) {
+                        $(".wrapper-img").prepend('<div class="presentationModeFooter" >Presentation Mode</div>')
+                        $("footer").show();
+                        $("#linknext").k_enable();
+                    }
+                  
                 });
             } else {
                 $(".main-content").fadeTo(250, 0.25, function () {
+                    $(".main-content").html("");
                     $(".main-content").load(pageUrl, function () {
                         $(this).fadeTo(600, 1)
                         $(".hintcontainer").hide();
@@ -559,38 +566,3 @@ function setReader(idToStartReading) {
 }
 
 
-function removeCSS(cssFileToRemove) {
-    for (var w = 0; w < document.styleSheets.length; w++) {
-        if (document.styleSheets[w].href.indexOf(cssFileToRemove) != -1) {
-            document.styleSheets[w].disabled = true;
-        }
-    }
-}
-function addCSS(cssFileToAdd) {
-    var isCSSAlreadyAdded = false;
-    for (var w = 0; w < document.styleSheets.length; w++) {
-        if (document.styleSheets[w].href.indexOf(cssFileToAdd) != -1) {
-            isCSSAlreadyAdded = false;
-        }
-    }
-    console.log(isCSSAlreadyAdded + " --")
-    if (!isCSSAlreadyAdded) {
-        var newlink = document.createElement("link");
-        newlink.setAttribute("rel", "stylesheet");
-        newlink.setAttribute("type", "text/css");
-        newlink.setAttribute("href", cssFileToAdd);
-        document.getElementsByTagName("head").item(0).appendChild(newlink);
-    }
-}
-
-function changeCSS(cssFile, cssLinkIndex) {
-
-    var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
-
-    var newlink = document.createElement("link");
-    newlink.setAttribute("rel", "stylesheet");
-    newlink.setAttribute("type", "text/css");
-    newlink.setAttribute("href", cssFile);
-
-    document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
-}

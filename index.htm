@@ -38,6 +38,7 @@
         <header role="banner">
             <center>
                 <div class="header-content-dock" aria-hidden="true">
+                        <div class="presentationModeFooter" style="display:none">Presentation Mode</div>
                     <div class="intro-content" style="float:none;display: flex;                    justify-content: center;
                     margin-top: 11px;">
                         <div class="progressdiv" style="margin-left:none">
@@ -51,7 +52,7 @@
                             </div>
                         </div>
 
-                        <div class="hintDiv" style="width:120px;">
+                        <div class="hintDiv hintdivdock" style="width:120px;">
                             <a href="#" class="hintdoc" style="position: unset" aria-label="Hint Icon Click here for more information">
                                 <svg disabled aria-labelledby="svghinttitle svghintdes" aria-hidden="true" role="image"
                                     style="vertical-align: text-bottom" height="26" width="29" enable-background="new 0 0 128 128"
@@ -78,7 +79,8 @@
                                             class="hinticon" fill="#005976" />
                                     </g>
                                 </svg>
-                                <span class="hintlinkspan">Hint</span></a>
+                                <span class="hintlinkspan">
+                                    Hint</span></a>
                         </div>
                     </div>
                     <div class="hintcontainerdoc" style="display:none; float: left; width: 100%;">
@@ -96,6 +98,7 @@
                         <h1 id="titleheader" tabindex="-1">Hardware</h1>
                     </div>
                     <div id="header-progress">
+                        <div class="presentationModeFooter" style="display:none" >Presentation Mode</div>
                         <div class="progress">
                             <div class="background">
                                 <!--<div class="pgBgItemFill"></div>-->
@@ -104,7 +107,7 @@
                         </div>
                         <div class="header-informarion">
                             <div class="header-content">
-                                <div id="progressdiv" tabindex="0" class="progressdiv" >
+                                <div id="progressdiv" tabindex="-1" class="progressdiv" role="text">
                                     Progress: 0%
                                 </div>
                                 <div id="scorediv" class="scoreDiv">
