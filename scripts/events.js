@@ -359,7 +359,7 @@ window.addEventListener("scroll", function () {
         target.css({ "visibility": "hidden", "top": "-80px"})
 
     }
-     if(_Navigator.IsPresenterMode())
+    if(_Navigator.IsPresenterMode() || _Navigator.IsReviewMode())
     {
         $(".header-content-dock").find(".presentationModeFooter").show();
         $(".header-content-dock .intro-content").css({"margin-top":"30px"})
