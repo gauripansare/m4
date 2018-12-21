@@ -1,7 +1,7 @@
 ﻿//This api will contain navigation logic and page load.
 //It will also handle the question navigation if the page is having multiple questions.
 var _Navigator = (function () {
-    var packageType = "";//presenter/scorm/revel
+    var packageType = "scorm";//presenter/scorm/revel
     var isReviewMode = false;
     var _currentPageId = "";
     var _currentPageObject = {};
@@ -10,6 +10,7 @@ var _Navigator = (function () {
     //var presentermode = false;
     var bookmarkpageid = "";
     var quizpageid = "p7";
+    var Summarybookmark = false;
     var _NData = {
         "p1": {
             pageId: "p1",
@@ -210,7 +211,32 @@ var _Navigator = (function () {
                         }
                         if (_currentPageId == quizpageid)//  change to assessment id
                         {
-                            _Assessment.ShowQuestion();
+                            if (Summarybookmark) {
+
+                                $(".intro-content-question").hide();
+                                $(".questionwrapper").hide();
+                                $("#Summary").show();
+                                $("#Questioninfo").hide();
+                                $("#Summary").load("pagedata/Summary.htm", function () {
+                                    _Assessment.ShowSummary();
+                                    if (isChrome && !isAndroid) {
+                                        $("h2.pageheading").attr("tabindex", "0");
+                                        $("h2").focus();
+                                    }
+                                    else {
+                                        $("#progressdiv").focus();
+                                    }
+                                    $("#linkprevious").k_enable();
+
+                                })
+                                $("#climate-deal").css("margin-left", "23%");
+                                $("#linknext").k_disable();
+                            }
+                            else {
+                                _Assessment.ShowQuestion();
+                                $("h2.pageheading").attr("tabindex", "0");
+                                $("h2").focus();
+                            }
                         }
                         if (_currentPageId == "p2") {
                             $("#titleheader").focus();
@@ -248,8 +274,12 @@ var _Navigator = (function () {
             }
             _Navigator.GetBookmarkData();
         },
+GetSummarybookmark: function () {
+            return Summarybookmark;
+        },
 
         Prev: function () {
+            Summarybookmark = false;
             if (_Navigator.IsRevel()) {
                 LifeCycleEvents.OnInteraction("Previous link click.")
             }
@@ -273,7 +303,7 @@ var _Navigator = (function () {
 
         },
         Next: function () {
-            $("#linkprevious").k_enable();
+            Summarybookmark = false;
             if (_Navigator.IsRevel()) {
                 LifeCycleEvents.OnInteraction("Next link click.")
             }
@@ -303,6 +333,8 @@ var _Navigator = (function () {
                     $("#Summary").show();
                     $("#Questioninfo").hide();
                     $("#Summary").load("pagedata/Summary.htm", function () {
+Summarybookmark = true;
+                        _Navigator.GetBookmarkData();
                         _Assessment.ShowSummary()
                         $("#linkprevious").k_enable();
 
@@ -435,6 +467,7 @@ var _Navigator = (function () {
             if (bookmarkdata != undefined && bookmarkdata != "") {
                 bookmarkdata = JSON.parse(bookmarkdata);
                 bookmarkpageid = bookmarkdata.BMPageId;
+                Summarybookmark = bookmarkdata.Summarybookmark
                 this.SetNavigatorBMData(bookmarkdata.VisistedPages)
                 progressLevels = bookmarkdata.ProgressLevels;
                 _ModuleCommon.SetReviewData(bookmarkdata.ReviewData)
@@ -452,6 +485,7 @@ var _Navigator = (function () {
             bookmarkobj.ReviewData = _ModuleCommon.GetReviewData();
             bookmarkobj.AssessmentData = _Assessment.Getbookmarkdata();
             bookmarkobj.ComputerData = _Computer.Getbookmarkdata();
+            bookmarkobj.Summarybookmark = _Navigator.GetSummarybookmark();
             if (this.IsRevel()) {
                 if (k_Revel.get_LaunchData().mode == LaunchModes.do) {
                     var suspend_data = JSON.stringify(bookmarkobj);
@@ -481,6 +515,8 @@ var _Navigator = (function () {
         },
 
         SetBookMarkPage: function () {
+         if (!this.IsScorm() && !this.IsRevel())
+                return;
             if (this.IsReviewMode())
                 return;
             if (this.IsScorm()) {
@@ -539,9 +575,13 @@ var _Navigator = (function () {
             }
         },
         GotoBookmarkPage: function () {
-
-            if (bookmarkpageid != undefined && bookmarkpageid != "") {
-                _Navigator.LoadPage(bookmarkpageid)
+            if (bookmarkpageid != undefined && bookmarkpageid != "" && !this.IsReviewMode()) {
+                if (Summarybookmark) {
+                    _Navigator.LoadPage(quizpageid);
+                }
+                else {
+                    _Navigator.LoadPage(bookmarkpageid)
+                }
             }
             else {
                 _Navigator.Start();
