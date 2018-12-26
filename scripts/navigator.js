@@ -94,14 +94,20 @@ var _Navigator = (function () {
             $(".startbtn").k_disable();
         }
         if (_Navigator.IsReviewMode()) {
+            currentQuestionIndex = 0;
+            $(".divHotSpotCommon").k_disable();
+            $("input[type='radio']").k_disable();
+            $("input[type='checkbox']").k_disable();
+            $(".divHotSpot ").k_disable();
             $("#linknext").k_enable();
             $(".startbtn").k_disable();
+        }
         if (_Navigator.IsPresenterMode() || _Navigator.IsReviewMode()) {
             if(isIphone || isAndroid){
                 $("#header-progress .presentationModeFooter").hide();                        
             }
         }
-        }
+        
     }
     return {
         Get: function () {
@@ -198,6 +204,7 @@ var _Navigator = (function () {
                         $(".hintcontainer").hide();
                         $("h2").attr("tabindex", "-1")
                         OnPageLoad();
+                        $("#linkprevious").k_enable();
                         if (_currentPageId == "p4") {
                             //_Computer.UpdateCart();ATUL:not use
                         }
@@ -317,7 +324,7 @@ GetSummarybookmark: function () {
                     currentQuestionIndex = currentQuestionIndex + 1
                     $("#Questioninfo").show();
                     _Assessment.ShowQuestion()
-                    if (gRecordData.Status != "Completed" && !this.IsPresenterMode()) {
+                    if (gRecordData.Status != "Completed" && !this.IsPresenterMode() && !this.IsReviewMode()) {
                         $("#linknext").k_disable();
                         $("#linkprevious").k_disable();
                     }

@@ -95,7 +95,7 @@ var _Computer = (function () {
 				}
 				if (_Navigator.IsPresenterMode()) {
 					this.showQuestionPresenterMode();
-				}
+				}				
 				$("#progressdiv").focus();
 
 				return;
@@ -159,7 +159,7 @@ var _Computer = (function () {
 					}
 
 				}
-				$(".addtocart").show();
+				$(".addtocart").show();				
 
 			}
 			if (currentCompQuestionIndex == 11) {
@@ -209,6 +209,10 @@ var _Computer = (function () {
 			}
 			if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed" || _Navigator.IsPresenterMode()) {
 				$(".computerwrapper input[type='button']").hide();
+			}
+			if(_Navigator.IsReviewMode()){
+				$("#linknext").k_enable();
+				$(".buildcomputer").k_disable();
 			}
 			this.ShowFeedback();
 			$("#progressdiv").focus();
@@ -291,7 +295,12 @@ var _Computer = (function () {
 				}
 			}
 			_Navigator.UpdateProgressBar();
+			if(_Navigator.IsReviewMode()){
+				$("#linknext").k_enable();
+				$(".buildcomputer").k_disable();
+			}
 			this.ShowFeedback(shiftfocus);
+
 		},
 		ShowFeedback: function (shiftfocus) {
 			if (_Navigator.IsPresenterMode()) {
