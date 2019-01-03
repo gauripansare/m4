@@ -2,9 +2,7 @@ var hotspotclicked = false;;
 var hotspot;
 
 $(document).on("click", ".divHotSpot", function (event) {
- if (_Navigator.IsPresenterMode()) {
-        return;
-    }
+ 
     event.preventDefault();
     $(this).k_disable()
     if (hotspotclicked || _Navigator.IsAnswered())
@@ -220,7 +218,7 @@ $(document).on("click", ".assessmentSubmit", function (event) {
     _Navigator.Next();
 });
 $(document).on("click", ".addtocart", function (event) {
-    if ($(this).hasClass("disabled")|| _Navigator.IsPresenterMode())
+    if ($(this).hasClass("disabled"))
         return;
     if (gComputerData.Questions[currentCompQuestionIndex].type == "checkbox") {
         gComputerData.Questions[currentCompQuestionIndex].UserSelectedOptionId = $("input[type='checkbox']:checked").map(function () {
@@ -238,7 +236,7 @@ $(document).on("click", ".addtocart", function (event) {
 
 });
 $(document).on("click", ".changecomputer", function (event) {
-    if ($(this).hasClass("disabled") || _Navigator.IsPresenterMode())
+    if ($(this).hasClass("disabled"))
         return;
     $("#div_feedback .div_fdkcontent").html("");
     $("#div_feedback").hide();
@@ -298,7 +296,7 @@ $(document).on("keyup", ".tooltipicon", function (event) {
     }
 });
 $(document).on("click", ".buildcomputer", function (event) {
-    if ($(this).hasClass("disabled")|| _Navigator.IsPresenterMode())
+    if ($(this).hasClass("disabled"))
         return;
     gComputerData.Status = "Completed";
     currentCompQuestionIndex = 12;

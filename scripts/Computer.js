@@ -207,7 +207,7 @@ var _Computer = (function () {
 			if (gComputerData.Status == "Completed") {
 				$(".computerwrapper input").k_disable();
 			}
-			if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed" || _Navigator.IsPresenterMode()) {
+			if (gComputerData.AllAnswered == "true" || gComputerData.Status == "Completed" ) {
 				$(".computerwrapper input[type='button']").hide();
 			}
 			if(_Navigator.IsReviewMode()){
@@ -219,7 +219,7 @@ var _Computer = (function () {
 		},
 		UpdateCart: function (shiftfocus) {
 
-			if (gComputerData.Status == "Completed" && _Navigator.IsPresenterMode()) {
+			if (gComputerData.Status == "Completed") {
 				return;
 			}
 			$(".cartitem").empty();
@@ -285,7 +285,7 @@ var _Computer = (function () {
 				$(".questiontab[questionid='" + currentCompQuestionIndex + "']").addClass("questiontabselected")
 
 			}
-			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered && gComputerData.Status != "Completed" && !_Navigator.IsPresenterMode()) {
+			if (gComputerData.AllAnswered != undefined && gComputerData.AllAnswered && gComputerData.Status != "Completed" ) {
 				$(".buildcomputer").show();
 				if (gComputerData.CartCost > gComputerData.Budget) {
 					$(".buildcomputer").k_disable();
@@ -303,9 +303,6 @@ var _Computer = (function () {
 
 		},
 		ShowFeedback: function (shiftfocus) {
-			if (_Navigator.IsPresenterMode()) {
-				return;
-			}
 			shiftfocus = shiftfocus != undefined ? shiftfocus : false;
 			currQuestion = gComputerData.Questions[currentCompQuestionIndex];
 
@@ -330,7 +327,7 @@ var _Computer = (function () {
 
 		},
 		showQuestionPresenterMode: function () {
-			var currQuestion = gComputerData.Questions[currentCompQuestionIndex];
+			/*var currQuestion = gComputerData.Questions[currentCompQuestionIndex];
 			if (currQuestion.type == undefined || currQuestion.type != "button") {
 				var correctoption = currQuestion.Options.filter(function (item) {
 					return item.iscorrect;
@@ -367,7 +364,7 @@ var _Computer = (function () {
 			$("input[type='radio']").k_disable();
 			$("input[type='checkbox']").k_disable();
 			$("input[type='button']").hide();
-
+			*/
 			$("#linknext").k_enable();
 		},
 		showReviewSummary: function () {

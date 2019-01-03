@@ -430,6 +430,7 @@ var _ModuleCommon = (function () {
             }
         },
         PresenterMode: function () {
+            /*
             var currentPageData = _Navigator.GetCurrentPage();
             var pageData = this.GetPageDetailData();
 
@@ -445,6 +446,7 @@ var _ModuleCommon = (function () {
                 _Navigator.UpdateProgressBar();
             }
             $(".divHotSpot").k_disable();
+            */
             $("#linknext").k_enable();
         },
         ApplycontainerWidth: function () {
