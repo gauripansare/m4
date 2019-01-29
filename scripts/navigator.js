@@ -202,7 +202,7 @@ var _Navigator = (function () {
                     $(".main-content").load(pageUrl, function () {
                         $(this).fadeTo(600, 1)
                         $(".hintcontainer").hide();
-                        $("h2").attr("tabindex", "-1")
+                        $("h2").attr("tabindex", "0")
                         OnPageLoad();
                         $("#linkprevious").k_enable();
                         if (_currentPageId == "p4") {
@@ -241,7 +241,7 @@ var _Navigator = (function () {
                             }
                             else {
                                 _Assessment.ShowQuestion();
-                                $("h2.pageheading").attr("tabindex", "0");
+                                $("h2.pageheading").attr("tabindex", "-1");
                                 $("h2").focus();
                             }
                         }

@@ -97,6 +97,9 @@ var _Computer = (function () {
 					this.showQuestionPresenterMode();
 				}				
 				$("#progressdiv").focus();
+				if (isChrome && !isAndroid) {
+					$("h2").focus();
+				}
 
 				return;
 			}
@@ -216,6 +219,9 @@ var _Computer = (function () {
 			}
 			this.ShowFeedback();
 			$("#progressdiv").focus();
+			if (isChrome && !isAndroid) {
+				$("h2").focus();
+			}
 		},
 		UpdateCart: function (shiftfocus) {
 
