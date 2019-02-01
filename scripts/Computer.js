@@ -169,7 +169,7 @@ var _Computer = (function () {
 				$(".questionoptions").css({ "margin-top": "-10px" });
 				$(".questiontext").css({ "margin-top": "-10px" })
 				if (navigator.userAgent.toLowerCase().indexOf('safari')) {
-					$(".questionoptions").css({ "height": "255px", "overflow-y": "auto" });
+					$(".questionoptions").css({ "height": "255px", "overflow-y": "auto","padding": "2px" });
 				}
 				$(".addtocart").css({ "margin-top": "-10px" })
 			}
@@ -218,11 +218,33 @@ var _Computer = (function () {
 				$(".buildcomputer").k_disable();
 			}
 			this.ShowFeedback();
+			var currentPageData = _Navigator.GetCurrentPage();
+			if ((isFirefox || isIE11version) && currentPageData.pageId == "p5" ) {
+                this.FFCustomCheckboxAccessbility();
+            }
 			$("#progressdiv").focus();
 			if (isChrome && !isAndroid) {
 				$("h2").focus();
 			}
 		},
+		FFCustomCheckboxAccessbility: function () {
+            var radioboxarray = $("input[type='radio']").map(function () {
+                return $(this).attr("id");
+            }).get();
+            for (var i = 0; i < radioboxarray.length; i++) {
+                var aria_label = $("label[for='" + radioboxarray[i] + "']").text();
+                $("label[for='" + radioboxarray[i] + "'] ").attr("aria-hidden", "true");
+                $("#" + radioboxarray[i]).attr("aria-label", aria_label );
+            }
+            var checkboxarray = $("input[type='checkbox']").map(function () {
+                return $(this).attr("id");
+            }).get();
+            for (var i = 0; i < checkboxarray.length; i++) {
+                var aria_label = $("label[for='" + checkboxarray[i] + "']").text();
+                $("label[for='" + checkboxarray[i] + "'] ").attr("aria-hidden", "true");
+                $("#" + checkboxarray[i]).attr("aria-label", aria_label);
+            }
+        },
 		UpdateCart: function (shiftfocus) {
 
 			if (gComputerData.Status == "Completed") {
