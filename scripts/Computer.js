@@ -96,10 +96,7 @@ var _Computer = (function () {
 				if (_Navigator.IsPresenterMode()) {
 					this.showQuestionPresenterMode();
 				}				
-				$("#progressdiv").focus();
-				if (isChrome && !isAndroid) {
-					$("h2").focus();
-				}
+				$("h2:first").attr({tabindex: "-1", role: "heading"}).focus();
 
 				return;
 			}
@@ -222,10 +219,7 @@ var _Computer = (function () {
 			if ((isFirefox || isIE11version) && currentPageData.pageId == "p5" ) {
                 this.FFCustomCheckboxAccessbility();
             }
-			$("#progressdiv").focus();
-			if (isChrome && !isAndroid) {
-				$("h2").focus();
-			}
+			$("h2:first").attr({tabindex: "-1", role: "heading"}).focus();
 		},
 		FFCustomCheckboxAccessbility: function () {
             var radioboxarray = $("input[type='radio']").map(function () {
@@ -502,7 +496,7 @@ var MCQTooltip = MCQTooltip || function () {
 			if (_container.find(".tooltiptext").length > 0 && _element.attr("tooltipid") == $(".navtipopen").attr("tooltipid")) {
 				this.Clear();
 
-				$("h2.pageheading").focus();
+				$("h2:first").attr({tabindex: "-1", role: "heading"}).focus();
 			}
 			else {
 				this.Clear();
